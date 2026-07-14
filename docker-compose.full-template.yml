@@ -1,0 +1,29 @@
+# Template for future full environment. Frontend is ready now.
+# Strapi app is not bundled in this repository; create it as a separate repo/app using docs/STRAPI_CMS_BOOTSTRAP_V3.3.md.
+services:
+  staroak-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: staroak_cms
+      POSTGRES_USER: staroak
+      POSTGRES_PASSWORD: change-me-in-secret-manager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
