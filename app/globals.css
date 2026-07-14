@@ -3682,3 +3682,12 @@ button:disabled {
     opacity: 1 !important;
   }
 }
+
+/* === V3.5 motion: scroll-driven tangent sweep ============================ */
+.v35-tangent-sweep {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+}

@@ -5,6 +5,7 @@ import { LeadForm } from '@/components/LeadForm';
 import { ScrollExperience } from '@/components/ScrollExperience';
 import { Section } from '@/components/Section';
 import { ValueFlywheel } from '@/components/ValueFlywheel';
+import { TangentSweep } from '@/components/motion/TangentSweep';
 import {
   aiCapabilities,
   complianceNotes,
@@ -108,6 +109,9 @@ export default function HomePage() {
         title="一核多翼，一院一网。"
         intro="AI 引擎在中心持续沉淀能力，当前产业与服务抓手进入真实场景，星橡智库形成研究方法，产业生态网连接长期协同。"
       >
+        <div style={{ position: 'relative' }}>
+          <TangentSweep trackSelector=".architecture-section" />
+        </div>
         <ArchitectureDiagram />
         <Link className="section-link" href="/industries">探索产业布局 <span aria-hidden="true">→</span></Link>
       </Section>
