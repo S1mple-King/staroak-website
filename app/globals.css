@@ -4003,3 +4003,95 @@ button:disabled {
   background: linear-gradient(to right, #D5B36E 0%, transparent 100%);
   margin-bottom: 16px;
 }
+
+/* === V3.5-C dawn gradient (top-light variant, royal blue overlay) ===========
+   Per 2026-07-14 update: keep the V3.4 black/gold/silver palette but add a soft
+   royal-blue "dawn" wash at the very top of the page so each route's top
+   region reads slightly cooler/lighter than the deep navy of the body. The
+   wash is mounted on:
+     - .v35-status-bar (global; covers every page, not just home)
+     - .page-hero      (inner pages only — home hero D8-untouched)
+     - .rootline-rail  (left rail gradient gets a blue cap at the top)
+   The base tokens --bg / --bg-2 / --gold / --silver are not changed.
+*/
+:root {
+  --dawn-blue: #4A6FA5;
+  --dawn-cool: #1A3556;
+  --dawn-glow: 120px;
+}
+
+.v35-status-bar {
+  /* add a soft blue top wash under the existing transparent background */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(74, 111, 165, 0.32) 0%,
+    rgba(26, 53, 86, 0.18) 45%,
+    rgba(11, 18, 32, 0) 100%
+  );
+  background-color: transparent;
+}
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+}
+/* New ::after pseudo-element stacked above the existing ::before (gold 1px
+   line) so the dawn wash does not displace or replace any existing decoration. */
+.page-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    rgba(74, 111, 165, 0.22) 0%,
+    rgba(74, 111, 165, 0.08) 35%,
+    rgba(11, 18, 32, 0) 70%
+  );
+}
+
+/* Rootline vertical rail: add the dawn-blue at the very top so the line
+   visually begins in light and descends into gold. The middle and bottom
+   behavior is unchanged. */
+.rootline-rail {
+  background: linear-gradient(
+    to top,
+    #9F8450 0%,
+    #D5B36E 38%,
+    #D9DCE1 78%,
+    #4A6FA5 100%
+  );
+  opacity: 0.6;
+}
+.rootline-ring {
+  /* Slightly brighter halo so it reads against the dawn-lit area near the top */
+  box-shadow: 0 0 8px rgba(74, 111, 165, 0.55);
+}
+
+/* StatusBar signature / index text picks up a cooler tone so it harmonizes
+   with the dawn wash without losing WCAG contrast against the deep navy. */
+.v35-status-bar-mid {
+  color: #B7CCE6;
+}
+.v35-status-bar-mid .v35-status-bar-dot {
+  background: #B7CCE6;
+}
+
+/* Mobile / tablet: soften the dawn (already darker from less viewport height). */
+@media (max-width: 1023px) {
+  .v35-status-bar {
+    background-image: linear-gradient(
+      to bottom,
+      rgba(74, 111, 165, 0.24) 0%,
+      rgba(11, 18, 32, 0) 100%
+    );
+  }
+  .page-hero::after {
+    height: 140px;
+    opacity: 0.85;
+  }
+}
