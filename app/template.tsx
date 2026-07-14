@@ -1,3 +1,5 @@
+import { CinematicStage } from '@/components/motion/CinematicStage';
+
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="route-stage">{children}</div>;
+  return <CinematicStage>{children}</CinematicStage>;
 }

@@ -3776,3 +3776,15 @@ button:disabled {
   transform-origin: left center;
   opacity: 0;
 }
+
+/* === V3.5 motion: cinematic route stage (blur + slide-in entry) =========== */
+.v35-route-stage {
+  will-change: transform, opacity, filter;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v35-route-stage {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
