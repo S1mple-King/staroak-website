@@ -3806,8 +3806,7 @@ button:disabled {
   --motion-orbit-fast: 12s;
 }
 
-/* === V3.5 status bar (P1 signature: index / brand / signature / time) ====== */
-.v35-status-bar {
+/* === V3.5 status bar (P1 signature: index / brand / signature / time) ====== */.v35-status-bar {
   position: sticky;
   top: 0;
   z-index: 65;
@@ -3878,5 +3877,100 @@ button:disabled {
   }
   .v35-status-bar-mid {
     display: none;
+  }
+}
+
+/* === V3.5 brand: RootlineNav (left chapter rail, scheme A) ================= */
+.rootline {
+  position: fixed;
+  top: 96px;
+  bottom: 96px;
+  left: var(--gutter);
+  z-index: 30;
+  display: none;
+  pointer-events: none;
+  width: 96px;
+}
+.rootline > ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  pointer-events: auto;
+}
+.rootline-rail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to top, #9F8450 0%, #D5B36E 75%, #D9DCE1 100%);
+  opacity: 0.55;
+}
+.rootline-ring {
+  position: absolute;
+  left: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D5B36E;
+  transform: translate3d(0, var(--rootline-ring-y, 0), 0);
+  box-shadow: 0 0 8px rgba(213, 179, 110, 0.55);
+  transition: transform 240ms var(--ease);
+}
+.rootline-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D9DCE1;
+  opacity: 0.5;
+  transition: opacity var(--motion-base) var(--ease), color var(--motion-base) var(--ease);
+  margin: 48px 0;
+  white-space: nowrap;
+}
+.rootline-link:hover {
+  opacity: 1;
+  color: #D5B36E;
+}
+.rootline-link[aria-current="page"] {
+  opacity: 1;
+  color: #D5B36E;
+}
+.rootline-link[aria-current="page"]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #D5B36E;
+  border-radius: 50%;
+  margin-right: 6px;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+.rootline-key {
+  color: #D5B36E;
+}
+.rootline-cap {
+  position: absolute;
+  left: -1.5px;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D5B36E;
+}
+@media (min-width: 1280px) {
+  .rootline {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rootline-ring {
+    transition: none !important;
+  }
+  .rootline-link {
+    transition: none !important;
   }
 }
