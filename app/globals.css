@@ -3758,3 +3758,21 @@ button:disabled {
     font-size: 44px;
   }
 }
+
+/* === V3.5 motion: section tone (chapter tangent + head lift) =============== */
+.v35-section-tone {
+  position: relative;
+}
+.v35-section-tone .section-head {
+  position: relative;
+}
+.v35-section-tone .v35-section-tangent {
+  display: block;
+  height: 1px;
+  width: 96px;
+  background: linear-gradient(to right, #D5B36E, #D9DCE1);
+  margin-bottom: 14px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+}

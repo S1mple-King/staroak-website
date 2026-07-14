@@ -7,6 +7,7 @@ import { Section } from '@/components/Section';
 import { ValueFlywheel } from '@/components/ValueFlywheel';
 import { TangentSweep } from '@/components/motion/TangentSweep';
 import { CtaRimBreathe } from '@/components/motion/CtaRimBreathe';
+import { SectionTone } from '@/components/motion/SectionTone';
 import {
   aiCapabilities,
   complianceNotes,
@@ -103,19 +104,21 @@ export default function HomePage() {
         <Link className="section-link" href="#group-model">理解集团模式 <span aria-hidden="true">↓</span></Link>
       </Section>
 
-      <Section
-        id="group-model"
-        className="architecture-section"
-        eyebrow="03 / Group Architecture"
-        title="一核多翼，一院一网。"
-        intro="AI 引擎在中心持续沉淀能力，当前产业与服务抓手进入真实场景，星橡智库形成研究方法，产业生态网连接长期协同。"
-      >
-        <div style={{ position: 'relative' }}>
-          <TangentSweep trackSelector=".architecture-section" />
-        </div>
-        <ArchitectureDiagram />
-        <Link className="section-link" href="/industries">探索产业布局 <span aria-hidden="true">→</span></Link>
-      </Section>
+      <SectionTone tone="tactical">
+        <Section
+          id="group-model"
+          className="architecture-section"
+          eyebrow="03 / Group Architecture"
+          title="一核多翼，一院一网。"
+          intro="AI 引擎在中心持续沉淀能力，当前产业与服务抓手进入真实场景，星橡智库形成研究方法，产业生态网连接长期协同。"
+        >
+          <div style={{ position: 'relative' }}>
+            <TangentSweep trackSelector=".architecture-section" />
+          </div>
+          <ArchitectureDiagram />
+          <Link className="section-link" href="/industries">探索产业布局 <span aria-hidden="true">→</span></Link>
+        </Section>
+      </SectionTone>
 
       <Section
         eyebrow="04 / AI Engine"
@@ -134,12 +137,13 @@ export default function HomePage() {
         <Link className="section-link" href="/ai-engine">了解 AI 引擎 <span aria-hidden="true">→</span></Link>
       </Section>
 
-      <Section
-        className="platform-section"
-        eyebrow="05 / Current Platforms"
-        title="从 AI 量化交易，到 AI 获客、全球增长与企业效能。"
-        intro="四个当前抓手按已确认关系与合规边界展示；其他方向仅作为战略预留。"
-      >
+      <SectionTone tone="tactile">
+        <Section
+          className="platform-section"
+          eyebrow="05 / Current Platforms"
+          title="从 AI 量化交易，到 AI 获客、全球增长与企业效能。"
+          intro="四个当前抓手按已确认关系与合规边界展示；其他方向仅作为战略预留。"
+        >
         <div className="card-grid two platform-grid">
           {servicePlatforms.map((platform) => (
             <article className="lux-card platform-card" id={platform.id} key={platform.id}>
@@ -157,7 +161,8 @@ export default function HomePage() {
           ))}
         </div>
         <Link className="section-link" href="/industries">查看产业布局 <span aria-hidden="true">→</span></Link>
-      </Section>
+        </Section>
+      </SectionTone>
 
       <Section
         eyebrow="06 / Value Flywheel"
