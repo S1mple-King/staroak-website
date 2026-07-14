@@ -3974,3 +3974,32 @@ button:disabled {
     transition: none !important;
   }
 }
+
+/* === V3.5 brand: BranchTangent + footer cap (scheme B) ==================== */
+:root {
+  --motion-rail: 220ms;
+}
+.v35-branch-tangent {
+  display: block;
+  position: relative;
+  height: 1px;
+  width: 28px;
+  background: linear-gradient(to right, #D5B36E 0%, #D5B36E 8px, #D9DCE1 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0;
+}
+.v35-branch-tangent[data-align="end"] {
+  transform-origin: right center;
+  background: linear-gradient(to left, #D5B36E 0%, #D5B36E 8px, #D9DCE1 100%);
+}
+.page-hero-branch-slot {
+  margin: 8px 0 12px;
+}
+.footer-rootline-cap {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(to right, #D5B36E 0%, transparent 100%);
+  margin-bottom: 16px;
+}

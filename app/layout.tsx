@@ -6,6 +6,7 @@ import { MotionOrchestrator } from '@/components/MotionOrchestrator';
 import { MotionInit } from './motion-init';
 import { StatusBar } from '@/components/motion/StatusBar';
 import { RootlineNav } from '@/components/brand/RootlineNav';
+import { RootlineDriver } from '@/components/brand/RootlineDriver';
 import { siteConfig } from '@/lib/site-data';
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="site-shell">
           <Header />
           <RootlineNav />
+          <RootlineDriver target="main" />
           <StatusBar index="01" brand="STAROAK HOLDINGS" signature="ROOTED · INTELLIGENCE · STARWARD" />
           <main id="main-content">{children}</main>
           <Footer />

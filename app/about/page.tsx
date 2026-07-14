@@ -3,12 +3,16 @@ import { InnerPageCta } from '@/components/InnerPageCta';
 import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
 import { TangentLine } from '@/components/motion/TangentLine';
+import { BranchTangent } from '@/components/motion/BranchTangent';
 
 export const metadata = { title: '关于星橡', description: '了解星橡控股的集团定位、使命、愿景和价值观。' };
 
 export default function AboutPage() {
   return (
     <div className="inner-page about-page">
+      <div className="page-hero-branch-slot">
+        <BranchTangent trackSelector=".page-hero" />
+      </div>
       <PageHero
         eyebrow="About StarOak"
         title="根植智能，向星未来"

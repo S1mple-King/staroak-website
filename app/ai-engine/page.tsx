@@ -3,6 +3,7 @@ import { CapabilityArchitecture } from '@/components/CapabilityArchitecture';
 import { InnerPageCta } from '@/components/InnerPageCta';
 import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
+import { BranchTangent } from '@/components/motion/BranchTangent';
 import { aiCapabilities } from '@/lib/site-data';
 
 export const metadata = { title: 'AI引擎', description: '星橡 AI 引擎：模型、数据、智能体、流程自动化、增长智能与可信治理。' };
@@ -11,6 +12,9 @@ export default function AIEnginePage() {
   const items = aiCapabilities.map(([title, summary]) => ({ title, summary }));
   return (
     <div className="inner-page ai-engine-page">
+      <div className="page-hero-branch-slot">
+        <BranchTangent trackSelector=".page-hero" />
+      </div>
       <PageHero
         eyebrow="AI Engine"
         title="AI 引擎：星橡的核心智能能力"

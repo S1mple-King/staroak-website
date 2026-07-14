@@ -2,6 +2,7 @@ import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
 import { LeadForm } from '@/components/LeadForm';
 import { CardFlipIn } from '@/components/motion/CardFlipIn';
+import { BranchTangent } from '@/components/motion/BranchTangent';
 import { complianceNotes, reservedIndustries, servicePlatforms } from '@/lib/site-data';
 
 export const metadata = { title: '产业布局', description: '星橡产业布局聚焦 APEX、星藤智能科技、沐洋智联与企业AI技术效能增长平台，并预留未来产业方向。' };
@@ -9,6 +10,9 @@ export const metadata = { title: '产业布局', description: '星橡产业布�
 export default function IndustriesPage() {
   return (
     <div className="inner-page industries-page">
+      <div className="page-hero-branch-slot">
+        <BranchTangent trackSelector=".page-hero" />
+      </div>
       <PageHero
         eyebrow="Industry Layout"
         title="产业布局：当前抓手与未来空间"

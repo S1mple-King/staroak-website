@@ -7,6 +7,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-grid">
         <div>
+          <span className="footer-rootline-cap" aria-hidden="true" />
           <Image
             className="footer-logo"
             src="/assets/staroak-mark-transparent.png"
