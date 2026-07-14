@@ -50,7 +50,7 @@ export default function HomePage() {
             <h1 id="home-hero-title">{siteConfig.primaryClaim}</h1>
           </div>
           <p className="hero-lead hero-lead-cycle">
-            星橡以 AI 引擎为核心能力，围绕 AI 量化交易、AI 智能获客、企业全球增长与技术效能场景，持续探索智能技术进入真实产业的应用路径，构建面向未来的产业服务与生态协同平台。
+            AI 引擎进入真实产业。
           </p>
           <div className="hero-actions">
             <Link className="hero-cta-primary" href="/ai-engine">
@@ -72,7 +72,7 @@ export default function HomePage() {
       <Section
         eyebrow="01 / Brand Definition"
         title="星橡是一家 AI 驱动的智能产业控股集团。"
-        intro="星橡（深圳）产业控股有限公司以 AI 引擎为能力核心，通过技术研发、平台共建、参股联合、产业服务与生态协同，将智能能力进入真实商业场景，持续创造可复利的长期价值。"
+        intro="AI 引擎连接技术、产业、资本与增长。"
       >
         <div className="identity-grid">
           {identityKeywords.map(([title, summary]) => (
@@ -90,7 +90,7 @@ export default function HomePage() {
         className="statement-section"
         eyebrow="02 / Holding Model"
         title="不是单点项目，而是智能产业控股平台。"
-        intro="星橡通过 AI 能力、产业抓手、治理机制与生态协同形成长期价值，不以概念或未经确认的规模包装业务。"
+        intro="长期价值由 AI 能力、产业抓手、治理与生态共同沉淀。"
       >
         <div className="contrast-panel">
           <p className="contrast-thesis">以集团级 AI 根能力为起点，建立可复用、可治理、可扩展的产业协同方式。</p>
@@ -110,7 +110,7 @@ export default function HomePage() {
           className="architecture-section"
           eyebrow="03 / Group Architecture"
           title="一核多翼，一院一网。"
-          intro="AI 引擎在中心持续沉淀能力，当前产业与服务抓手进入真实场景，星橡智库形成研究方法，产业生态网连接长期协同。"
+          intro="一核沉淀 AI，多翼连接产业、智库与生态。"
         >
           <div style={{ position: 'relative' }}>
             <TangentSweep trackSelector=".architecture-section" />
@@ -122,8 +122,8 @@ export default function HomePage() {
 
       <Section
         eyebrow="04 / AI Engine"
-        title="AI 引擎，是星橡连接技术与产业的核心能力。"
-        intro="围绕真实业务问题，持续沉淀可治理的模型、数据、流程、增长与研究辅助能力。"
+        title="AI 引擎 · 技术与产业之间的核心能力。"
+        intro="能力沉淀，进入真实问题。"
       >
         <div className="card-grid three capability-grid">
           {aiCapabilities.map(([title, summary], index) => (
@@ -142,7 +142,7 @@ export default function HomePage() {
           className="platform-section"
           eyebrow="05 / Current Platforms"
           title="从 AI 量化交易，到 AI 获客、全球增长与企业效能。"
-          intro="四个当前抓手按已确认关系与合规边界展示；其他方向仅作为战略预留。"
+          intro="当前抓手展示；其他方向仅作战略预留。"
         >
         <div className="card-grid two platform-grid">
           {servicePlatforms.map((platform) => (
@@ -167,7 +167,7 @@ export default function HomePage() {
       <Section
         eyebrow="06 / Value Flywheel"
         title="从能力沉淀，到场景验证，再到生态协同。"
-        intro="价值创造不是一次性交付，而是能力、场景、治理与生态之间持续反馈的有序循环。"
+        intro="能力、场景、治理与生态的有序循环。"
       >
         <ValueFlywheel />
         <Link className="section-link" href="/ecosystem">生态合作 <span aria-hidden="true">→</span></Link>
@@ -177,7 +177,7 @@ export default function HomePage() {
         className="reserve-section"
         eyebrow="07 / Strategic Reserve"
         title="聚焦当前场景，预留长期产业空间。"
-        intro="以下方向将根据资源、团队、合规与项目成熟度逐步公开，不作为成熟业务承诺。"
+        intro="成熟则公开，未熟不渲染。"
       >
         <ul className="reserve-list">
           {reservedIndustries.map((item) => <li key={item}>{item}</li>)}
@@ -186,8 +186,8 @@ export default function HomePage() {
 
       <Section
         eyebrow="08 / StarOak Intelligence"
-        title="以研究与洞察，连接技术、产业、资本与未来。"
-        intro="星橡智库统一承载观点、产业观察、方法论、报告预约与管理层表达；正式内容完成前仅提供选题预告。"
+        title="研究与洞察，连接技术与未来。"
+        intro="观点、方法论与报告预约。"
       >
         <div className="intelligence-grid">
           {intelligenceTopics.map((topic, index) => (
@@ -203,8 +203,8 @@ export default function HomePage() {
       <Section
         className="cooperation-section"
         eyebrow="09 / Ecosystem Partnership"
-        title="连接技术、产业、资本与企业增长需求。"
-        intro="提交合作方向与真实场景信息，星橡将按项目筛选、技术或产业评估及必要的合规流程进行沟通。"
+        title="连接技术、产业、资本与增长。"
+        intro="从真实场景与清晰边界开始。"
       >
         <div className="cooperation-grid">
           <div className="panel cooperation-directions">
@@ -222,8 +222,8 @@ export default function HomePage() {
       <section className="final-cta" aria-labelledby="final-cta-title">
         <div>
           <p className="eyebrow">Rooted Intelligence. Starward Future.</p>
-          <h2 id="final-cta-title">与星橡一起，让 AI 进入真实产业。</h2>
-          <p>从一项真实问题开始，连接可治理的 AI 能力与长期产业协同。</p>
+          <h2 id="final-cta-title">与星橡，让 AI 进入真实产业。</h2>
+          <p>从一项真实问题开始。</p>
         </div>
         <div className="final-cta-actions">
           <CtaRimBreathe>

@@ -5,15 +5,15 @@ import { metrics } from '@/lib/site-data';
 import { CountUp } from '@/components/motion/CountUp';
 import { BranchTangent } from '@/components/motion/BranchTangent';
 
-export const metadata = { title: '生态合作', description: '围绕 AI 引擎、沐洋智联全球增长、星藤智能科技AI获客、APEX系统能力、企业AI技术效能与产业共创展开生态合作。' };
+export const metadata = { title: '生态合作', description: '围绕 AI 引擎、全球增长、AI 获客、APEX、企业 AI 效能、产业共创合作。' };
 
 const partnershipDirections = [
-  ['AI 引擎技术合作', '围绕模型、数据、智能体、流程自动化与可信治理进行能力共建。'],
-  ['沐洋智联全球增长服务', '围绕市场洞察、内容生成、渠道触达、线索管理与增长运营展开协同。'],
-  ['星藤智能科技 AI 智能获客', '围绕全域获客、AI 客服、会话洞察、意向识别与私域运营展开合作。'],
-  ['APEX 系统能力', '围绕 AI 信号、量化研究辅助、多市场执行中台、三层风控与全链路审计审慎沟通。'],
-  ['企业 AI 技术效能增长', '围绕统一 AI 工作台、模型与 Token 治理、研发场景 Agent、效能看板与 AI 资产库展开试点。'],
-  ['产业共创与参股联合', '基于真实场景、合作基础、治理机制与长期价值进行项目共创。']
+  ['AI 引擎技术合作', '模型、智能体、数据、流程与治理共建。'],
+  ['沐洋智联全球增长', '洞察、内容、触达、线索与增长运营。'],
+  ['星藤智能科技 AI 获客', '全域获客、AI 客服、会话、意向、私域。'],
+  ['APEX 系统能力', '信号、研究、执行、风控、审计。'],
+  ['企业 AI 技术效能', '统一工作台、模型治理、研发 Agent、效能。'],
+  ['产业共创与参股联合', '基于真实场景、治理与长期价值。']
 ];
 
 const partnershipProcess = ['初步沟通', '项目筛选', '技术 / 产业评估', '合作模式设计', '尽调 / 合规', '联合推进'];
@@ -27,7 +27,7 @@ export default function EcosystemPage() {
       <PageHero
         eyebrow="Ecosystem Partnership"
         title="连接技术、产业、资本与增长"
-        intro="星橡欢迎产业企业与项目方、技术伙伴、资本与政府园区围绕真实场景、长期价值和清晰边界展开合作。"
+        intro="真实场景 · 长期价值 · 清晰边界。"
         label="Ecosystem"
         pageNumber="06"
         pageName="ECOSYSTEM"
@@ -46,7 +46,7 @@ export default function EcosystemPage() {
       <Section
         eyebrow="Partnership Network"
         title="让不同能力，在同一长期目标下协同。"
-        intro="星橡产业生态网连接技术、产业、资本、政府园区、客户、项目方与服务伙伴。"
+        intro="连接技术、产业、资本、政府园区、客户、服务伙伴。"
       >
         <div className="card-grid four partner-network-grid">
           {[
@@ -73,7 +73,7 @@ export default function EcosystemPage() {
       <Section
         eyebrow="Cooperation Process"
         title="从初步沟通，到联合推进。"
-        intro="合作按真实信息、专业评估与必要合规流程逐步推进，不以模糊承诺替代判断。"
+        intro="真实信息、专业评估、必要合规。"
       >
         <ol className="process-line">
           {partnershipProcess.map((step, index) => (
@@ -86,13 +86,13 @@ export default function EcosystemPage() {
           <div className="trusted-ai-principles">
             {['真实产业需求', 'AI 能力适配', '可持续商业基础', '双方协同意愿', '长期合规与治理'].map((item) => <span key={item}>{item}</span>)}
           </div>
-          <p>所有合作均以合法合规、数据授权、风险可控和长期价值为前提。APEX 相关沟通不构成投资建议、收益承诺、产品推介或交易邀约；AI 获客与全球增长服务不承诺线索数量、转化率或商业结果。</p>
+          <p>所有合作以合法合规、数据授权、风险可控、长期价值为前提。APEX 不构成投资建议；获客与全球增长不承诺线索数与转化。</p>
         </div>
       </Section>
       <Section
         eyebrow="Start a Conversation"
         title="提交合作需求"
-        intro="请提供真实场景与合作方向。提交后将进入项目筛选、专业评估与必要的合规复核流程。"
+        intro="真实场景、合作方向，由筛选、评估与合规分流。"
       >
         <div className="cooperation-grid ecosystem-form-grid">
           <aside className="panel cooperation-note">

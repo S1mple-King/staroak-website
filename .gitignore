@@ -32,3 +32,4 @@ pnpm-debug.log*
 *.pid
 *.pid.lock
 backups/
+.claude/

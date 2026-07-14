@@ -5,7 +5,7 @@ import { CardFlipIn } from '@/components/motion/CardFlipIn';
 import { BranchTangent } from '@/components/motion/BranchTangent';
 import { complianceNotes, reservedIndustries, servicePlatforms } from '@/lib/site-data';
 
-export const metadata = { title: '产业布局', description: '星橡产业布局聚焦 APEX、星藤智能科技、沐洋智联与企业AI技术效能增长平台，并预留未来产业方向。' };
+export const metadata = { title: '产业布局', description: '当前抓手：APEX、星藤智能科技 × 爬山虎、沐洋智联、企业 AI 技术效能。' };
 
 export default function IndustriesPage() {
   return (
@@ -16,7 +16,7 @@ export default function IndustriesPage() {
       <PageHero
         eyebrow="Industry Layout"
         title="产业布局：当前抓手与未来空间"
-        intro="首期以 APEX、星藤智能科技 × 爬山虎、沐洋智联与企业 AI 技术效能增长平台为重点；其他方向随项目成熟度逐步公开。"
+        intro="四个当前抓手；未来随成熟度公开。"
         label="Industries"
         pageNumber="04"
         pageName="INDUSTRIES"
@@ -24,7 +24,7 @@ export default function IndustriesPage() {
       <Section
         eyebrow="Current Platforms"
         title="四个当前产业与服务抓手"
-        intro="每个抓手均按已确认关系、真实能力与合规边界展示，不以未经确认的数据或效果承诺替代事实。"
+        intro="已确认关系，事实为先。"
       >
         <div className="card-grid two platform-showcase">
           {servicePlatforms.map((platform, index) => (
@@ -48,8 +48,8 @@ export default function IndustriesPage() {
       </Section>
       <Section
         eyebrow="Selection Standards"
-        title="产业选择，先看长期价值的成立条件。"
-        intro="新方向是否进入集团视野，取决于能力适配、真实需求、协同空间与长期合规，而不是短期热度。"
+        title="产业选择，看长期价值。"
+        intro="能力 · 真实需求 · 协同 · 长期合规。"
       >
         <div className="selection-grid">
           {['AI 重构空间', '真实产业场景', '商业闭环可能', '生态协同价值', '长期合规基础'].map((item) => (
@@ -61,7 +61,7 @@ export default function IndustriesPage() {
         className="strategic-reserve-section"
         eyebrow="Strategic Reserve"
         title="聚焦当前场景，预留长期产业空间。"
-        intro="以下方向将根据资源、团队、合规与项目成熟度逐步公开，不作为成熟业务承诺。"
+        intro="成熟则公开，未熟不渲染。"
       >
         <ul className="reserve-ribbon">{reservedIndustries.map((item) => <li key={item}>{item}</li>)}</ul>
       </Section>
@@ -69,14 +69,14 @@ export default function IndustriesPage() {
         id="industry-cooperation"
         eyebrow="Industry Partnership"
         title="围绕真实产业问题展开合作"
-        intro="欢迎提交 APEX 系统能力、AI 智能获客、全球增长、企业 AI 技术效能及产业共创合作需求。"
+        intro="从一项真实场景与明确边界开始。"
       >
         <div className="cooperation-grid industry-form-grid">
           <aside className="panel cooperation-note">
             <p className="panel-label">Before we begin</p>
             <h3>从真实场景与明确边界开始</h3>
-            <p>请说明所在行业、当前问题、期望合作方向及可用于评估的基础信息。星橡将按项目筛选、技术或产业评估及必要的合规流程进行沟通。</p>
-            <p className="warning">APEX、AI 获客与全球增长相关合作将分别遵循金融合规、数据授权与审慎表达要求。</p>
+            <p>请说明行业、问题、方向与可评估基础信息。</p>
+            <p className="warning">APEX、AI 获客、全球增长合作各循其合规。</p>
           </aside>
           <div className="panel form-panel"><LeadForm type="ecosystem" /></div>
         </div>

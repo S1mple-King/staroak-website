@@ -31,7 +31,7 @@ export function Footer() {
         </div>
         <div>
           <h4>合规提示</h4>
-          <p className="muted">AI量化交易相关内容仅用于技术能力与研究方向说明，不构成投资建议、收益承诺或金融产品推介。</p>
+          <p className="muted">AI 量化相关仅作技术能力说明，不构成投资建议。</p>
           <Link href="/privacy">隐私政策</Link>
           <Link href="/disclaimer">免责声明</Link>
         </div>

@@ -10,7 +10,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact StarOak"
         title="联系我们"
-        intro="无论是商务合作、政府园区、技术伙伴、媒体联系或人才沟通，都可从这里进入。联系邮箱与详细地址将在公开上线前完成验证。"
+        intro="商务、园区、技术、媒体、人才——均可由此进入。"
         label="Contact"
         pageNumber="07"
         pageName="CONTACT"
