@@ -3660,3 +3660,25 @@ button:disabled {
     transform: none !important;
   }
 }
+
+/* === V3.5 motion: base tangent (gold → silver gradient bar) ============== */
+.v35-tangent {
+  display: block;
+  background: linear-gradient(
+    to right,
+    #D5B36E 0%,
+    #D5B36E 24px,
+    #D9DCE1 24px,
+    #D9DCE1 100%
+  );
+  transform: scaleX(0);
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v35-tangent {
+    transform: scaleX(1) !important;
+    opacity: 1 !important;
+  }
+}

@@ -2,6 +2,7 @@ import { ArchitectureDiagram } from '@/components/ArchitectureDiagram';
 import { InnerPageCta } from '@/components/InnerPageCta';
 import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
+import { TangentLine } from '@/components/motion/TangentLine';
 
 export const metadata = { title: '关于星橡', description: '了解星橡控股的集团定位、使命、愿景和价值观。' };
 
@@ -16,6 +17,9 @@ export default function AboutPage() {
         pageNumber="02"
         pageName="ABOUT"
       />
+      <div className="page-hero-tangent-slot">
+        <TangentLine length="320px" />
+      </div>
       <Section
         eyebrow="Group Definition"
         title="星橡是谁，也明确不是什么。"
