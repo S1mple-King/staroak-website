@@ -4093,3 +4093,51 @@ button:disabled {
     opacity: 0.85;
   }
 }
+
+/* === V3.5-F oak glyph decorations (inner-page cards only) ==================
+   Cards inside <article class="lux-card"> can opt in via the data-oak
+   attribute (values: leaf, ring, branch). The card gets a quiet SVG
+   decoration at the requested corner. Home page cards are NOT decorated
+   (the .home-page[data-scroll-ready] .lux-card selector below opts them
+   out automatically). Decorations never block pointer events and stay
+   opacity 0.15-0.22 to remain visually quiet.
+*/
+.lux-card[data-oak] {
+  position: relative;
+  overflow: hidden;
+}
+.lux-card[data-oak]::after {
+  content: "";
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  pointer-events: none;
+  opacity: 0.22;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+/* Leaf: top-right */
+.lux-card[data-oak="leaf"]::after {
+  top: 14px;
+  right: 14px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 56' fill='none' stroke='%23D5B36E' stroke-width='0.6' stroke-linecap='round' stroke-linejoin='round'><path d='M28 50 C28 32 18 22 8 16 M28 50 C28 32 38 22 48 16 M28 50 L28 12 M22 26 L28 22 M34 26 L28 22 M22 36 L28 32 M34 36 L28 32 M24 44 L28 42 M32 44 L28 42'/><circle cx='28' cy='12' r='1.4' fill='%23D5B36E'/></svg>");
+}
+/* Ring: bottom-right (oak cross-section / 年轮) */
+.lux-card[data-oak="ring"]::after {
+  bottom: 14px;
+  right: 14px;
+  width: 48px;
+  height: 48px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23D5B36E' stroke-width='0.6'><circle cx='24' cy='24' r='3'/><circle cx='24' cy='24' r='8' opacity='0.7'/><circle cx='24' cy='24' r='14' opacity='0.45'/><circle cx='24' cy='24' r='20' opacity='0.25'/></svg>");
+}
+/* Branch: bottom-left (horizontal twig) */
+.lux-card[data-oak="branch"]::after {
+  bottom: 14px;
+  left: 14px;
+  width: 64px;
+  height: 32px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 32' fill='none' stroke='%23D5B36E' stroke-width='0.6' stroke-linecap='round'><path d='M2 16 Q24 6 50 14'/><path d='M14 12 L18 6 M28 10 L34 4 M40 12 L46 6 M50 14 L54 9'/><circle cx='50' cy='14' r='2' fill='%23D5B36E' opacity='0.7'/><circle cx='54' cy='9' r='1.5' fill='%23D5B36E' opacity='0.7'/></svg>");
+}
+
+/* Home page cards (D8): never decorated */
+.home-page .lux-card[data-oak]::after { content: none; }

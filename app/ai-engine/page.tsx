@@ -39,9 +39,9 @@ export default function AIEnginePage() {
         intro="从能力到服务，以场景、数据授权、长期合规为界。"
       >
         <div className="card-grid three path-grid">
-          <article className="lux-card path-card"><p className="card-eyebrow">Growth</p><h3>全球增长与智能获客</h3><p>画像、线索、AI 客服、内容、触达、私域、销售。</p></article>
-          <article className="lux-card path-card"><p className="card-eyebrow">APEX</p><h3>量化交易系统能力</h3><p>AI 信号、策略辅助、三层风控、多市场执行、审计。</p></article>
-          <article className="lux-card path-card"><p className="card-eyebrow">Enterprise</p><h3>企业技术效能</h3><p>统一 AI 工作入口、模型与 Token 治理、研发 Agent、效能看板、资产库。</p></article>
+          <article className="lux-card path-card" data-oak="ring"><p className="card-eyebrow">Growth</p><h3>全球增长与智能获客</h3><p>画像、线索、AI 客服、内容、触达、私域、销售。</p></article>
+          <article className="lux-card path-card" data-oak="ring"><p className="card-eyebrow">APEX</p><h3>量化交易系统能力</h3><p>AI 信号、策略辅助、三层风控、多市场执行、审计。</p></article>
+          <article className="lux-card path-card" data-oak="ring"><p className="card-eyebrow">Enterprise</p><h3>企业技术效能</h3><p>统一 AI 工作入口、模型与 Token 治理、研发 Agent、效能看板、资产库。</p></article>
         </div>
       </Section>
       <Section

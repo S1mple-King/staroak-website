@@ -55,14 +55,14 @@ export default function EcosystemPage() {
             ['资本与专业机构', '支持长期项目与治理能力'],
             ['政府与产业园区', '连接产业资源与协同空间']
           ].map(([title, summary]) => (
-            <article className="lux-card compact-card" key={title}><h3>{title}</h3><p>{summary}</p></article>
+            <article className="lux-card compact-card" data-oak="branch" key={title}><h3>{title}</h3><p>{summary}</p></article>
           ))}
         </div>
       </Section>
       <Section eyebrow="Partnership Types" title="六类合作方向">
         <div className="card-grid two partnership-grid">
           {partnershipDirections.map(([title, summary], index) => (
-            <article className="lux-card partnership-card" key={title}>
+            <article className="lux-card partnership-card" data-oak="leaf" key={title}>
               <span className="card-index">{String(index + 1).padStart(2, '0')}</span>
               <h3>{title}</h3>
               <p>{summary}</p>

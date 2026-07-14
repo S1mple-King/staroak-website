@@ -78,7 +78,7 @@ export default function AboutPage() {
       >
         <div className="governance-grid">
           {['长期主义', '可信责任', '协同共创', '审慎表达', '合规治理'].map((item) => (
-            <article className="governance-card" key={item}><span aria-hidden="true" /><h3>{item}</h3></article>
+            <article className="governance-card" data-oak="leaf" key={item}><span aria-hidden="true" /><h3>{item}</h3></article>
           ))}
         </div>
       </Section>

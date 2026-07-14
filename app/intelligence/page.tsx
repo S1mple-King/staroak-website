@@ -28,14 +28,14 @@ export default function IntelligencePage() {
             ['产业观察', 'AI 进入真实行业的路径与边界'],
             ['研究报告 / 白皮书', '完成后开放摘要、预约、下载']
           ].map(([title, summary]) => (
-            <article className="lux-card compact-card" key={title}><h3>{title}</h3><p>{summary}</p><span className="content-status">逐步开放</span></article>
+            <article className="lux-card compact-card" data-oak="ring" key={title}><h3>{title}</h3><p>{summary}</p><span className="content-status">逐步开放</span></article>
           ))}
         </div>
       </Section>
       <Section eyebrow="First Launch Topics" title="首批内容方向" intro="内容预告与报告预约。">
         <div className="card-grid three">
           {intelligenceTopics.map((topic, index) => (
-            <article className="lux-card" key={topic}><span className="card-index">{String(index + 1).padStart(2, '0')}</span><h3>{topic}</h3><p>内容预告 / 报告预约。正式内容审核后发布。</p></article>
+            <article className="lux-card" data-oak="leaf" key={topic}><span className="card-index">{String(index + 1).padStart(2, '0')}</span><h3>{topic}</h3><p>内容预告 / 报告预约。正式内容审核后发布。</p></article>
           ))}
         </div>
       </Section>

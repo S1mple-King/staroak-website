@@ -29,7 +29,7 @@ export default function IndustriesPage() {
         <div className="card-grid two platform-showcase">
           {servicePlatforms.map((platform, index) => (
             <CardFlipIn key={platform.id} index={index}>
-              <article id={platform.id} className="lux-card platform-card">
+              <article id={platform.id} className="lux-card platform-card" data-oak="leaf">
                 <div className="platform-card-head">
                   <p className="card-eyebrow">{platform.eyebrow}</p>
                   <span>{platform.relation}</span>
@@ -53,7 +53,7 @@ export default function IndustriesPage() {
       >
         <div className="selection-grid">
           {['AI 重构空间', '真实产业场景', '商业闭环可能', '生态协同价值', '长期合规基础'].map((item) => (
-            <article className="selection-card" key={item}><span aria-hidden="true" /><h3>{item}</h3></article>
+            <article className="selection-card" data-oak="ring" key={item}><span aria-hidden="true" /><h3>{item}</h3></article>
           ))}
         </div>
       </Section>
