@@ -3,6 +3,7 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MotionOrchestrator } from '@/components/MotionOrchestrator';
+import { MotionInit } from './motion-init';
 import { siteConfig } from '@/lib/site-data';
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-CN">
       <body>
         <a className="skip-link" href="#main-content">跳到主要内容</a>
+        <MotionInit />
         <MotionOrchestrator />
         <div className="site-shell">
           <Header />
