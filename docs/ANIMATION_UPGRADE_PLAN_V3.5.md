@@ -1,23 +1,26 @@
-# StarOak V3.5 动效升级计划 —「安静奢华 × 加大规模」
+# StarOak V3.5-B 动效升级计划 —「安静奢华 × 加大规模」
 
-> 状态：提案（待 Codex 视觉复核与本地实机验收后落地）
+> 状态：实施级提案（V3.5-B：允许外部依赖 / GSAP+ScrollTrigger 路径）
 > 主题：安静奢华 / 暗夜深穹 / 微金克制
 > 调性关键词：**cinematic · restrained · tactile · precise**
 > 北极星指标：动效规模感提升 2–3 倍，但不增加任何"喧嚣感"
 > 不调用的方向：弹性弹簧、视差大位移、WebGL 粒子、霓虹色、强 Parallax
+> 决策记录（2026-07-14）：用户已确认放弃"零外部依赖"约束，只以"实际效果"为唯一标准；取舍结果见 §10 决策记录。
 
 ---
 
 ## 0. TL;DR
 
-现状 V3.4 已经有 6 个动效组件 + 6 个 keyframes，全部走原生 CSS 变量 + IntersectionObserver，没有引入外部库。这次升级**继续不引入 GSAP/Framer Motion**（继续保持零外部动效依赖的性能与可审计优势），而是通过：
+V3.4 现有 6 个动效组件 + 6 个 keyframes 全部基于原生 CSS 变量 + IntersectionObserver。**V3.5-B 引入 GSAP 3.12 + ScrollTrigger**，因为用户在 2026-07-14 决定以"实际效果"为唯一标准 —— GSAP 在时间线编排 / 滚动驱动 / SVG morph / 值动画（数字滚动）上显著强于纯 CSS 方案；bundle 增量 ~30KB gzip，可控。
 
-1. **分层时序编排**（已有 IntersectionObserver 扩展为"入场 → 编排 → 焦点 → 离场"四段式）
-2. **空间纵深感**（多层 transform + will-change 合成层，营造电影镜头感）
-3. **品牌专属微动效**（沿用 SOVEREIGN ORBIT 母题，把"轨道"做成贯穿全局的视觉语言）
-4. **路径化滚动**（在 home/about/ai-engine/industries/ecosystem 五个高优先级页用现有 CSS 变量驱动一段"路径式"或"锁定式"动效）
+实现路径：
 
-交付形态：仍以 CSS keyframes / CSS variables / IntersectionObserver 为骨架，必要时新增 1–2 个客户端组件封装（不动现有架构）。
+1. **保留** 现有 IntersectionObserver / keyframes 设施，作为 reduced-motion 兜底
+2. **新增** `components/motion/` 目录，封装 7 个 GSAP 客户端组件
+3. **新增** 章节大数字 band（首页或 ecosystem 顶部），用 `CountUp` 做 0→目标数滚动
+4. **不动** package.json 除 gsap 一项；不动 next.config.mjs、API、Strapi、Docker、Nginx
+
+详细 bite-sized 实施步骤见：[docs/superpowers/plans/2026-07-14-v35-motion-upgrade.md](superpowers/plans/2026-07-14-v35-motion-upgrade.md)
 
 ---
 
@@ -249,3 +252,28 @@
 
 附：
 - 完成本计划不构成对实现完成度的承诺。请确认 §4 的视觉清单是否可以写入 `docs/VISUAL_QA_CHECKLIST_V3.5.md`，以及 §2.1 的改动清单是否需要调整（例如：是否包含 `app/contact/page.tsx`）。
+
+---
+
+## 10. 决策记录（2026-07-14）
+
+### 10.1 关键决策
+
+| 决策点 | 原方向 | V3.5-B 方向 | 原因 |
+|---|---|---|---|
+| 外部依赖 | 继续"零依赖" | 引入 `gsap` | 用户 2026-07-14 拍板："之前不引入外部依赖是为了快速落地最小可执行，现在不考虑这些，只考虑实际效果" |
+| 库选型 | 候选 framer-motion (motion) / gsap | **gsap + ScrollTrigger** | 时间线编排、SVG morph、值动画（数字滚动）能力更精准；bundle ~30KB < motion ~52KB |
+| 数字滚动 | 不打算做 | **必须做** | 用户 2026-07-14 第 3 项决定 |
+| 切线原语 | V3.4 只有 hero 处一笔 1px 微金短线 | **全站贯穿**：TangentLine (单笔) + TangentSweep (滚动贯通) + SectionTone (章节头部) | 用户原话："这两个是什么切线是怎么样的"——切线是 V3.4 已存在的"orbital tangent line"母题，V3.5 把母题做成全站动效语言 |
+
+### 10.2 与 V3.5-A（零依赖版）的差异
+
+V3.5-A 之前已写入仓库（提交 `5fa321d`）。V3.5-B 推翻 §0 TL;DR、§2.2 不改清单、§3.3 新增类，新增 §10。技术实现从纯 CSS 改为 GSAP；视觉/品牌目标相同。所有原 A 版视觉验收清单 (V-* / N-* / P-*) 仍适用，需新增 GSAP-specific 反向回放条目。
+
+### 10.3 V3.5-B 加入的硬要求
+
+1. **reduced-motion 必须 100% 静止**：GSAP 走 `if (reduced) return` 早退；CSS 兜底加 `transform: none !important`
+2. **首次入场不重复**：ScrollTrigger 一律 `{ once: true }`，避免回滚重播
+3. **路由数 18 不变**：新增组件不得新增路径
+4. **bundle 上限**：`gsap` 一项；不引入 `@gsap/business` / SplitText / MorphSVG / Inertia / `framer-motion`
+5. **每完成一个 Task 即 commit + push**，便于回退

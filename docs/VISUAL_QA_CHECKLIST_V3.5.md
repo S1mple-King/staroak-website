@@ -1,8 +1,9 @@
-# StarOak V3.5 动效升级 — Codex 视觉验收清单
+# StarOak V3.5-B 动效升级 — Codex 视觉验收清单
 
-> 配套：[ANIMATION_UPGRADE_PLAN_V3.5.md](ANIMATION_UPGRADE_PLAN_V3.5.md)
+> 配套：[ANIMATION_UPGRADE_PLAN_V3.5.md](ANIMATION_UPGRADE_PLAN_V3.5.md) · [2026-07-14-v35-motion-upgrade.md](superpowers/plans/2026-07-14-v35-motion-upgrade.md)
 > 本清单用于人工 / Codex 视觉复核。不通过任何一项视为不达标。
 > 每项需附手动截图或 DevTools 录屏回传。
+> 适用范围：V3.5-B（GSAP + ScrollTrigger 引入后的形态）。
 
 ## 0. 环境
 
@@ -122,3 +123,35 @@
 5. 反向回放：把 dev 分支输出 `git diff --stat main` 提交以便复核
 
 任一项缺失，PR 自动阻塞。
+
+---
+
+## 10. GSAP-Specific 反向回放（V3.5-B 新增）
+
+| ID | 验证项 | 期望 | 验证方式 |
+|---|---|---|---|
+| G-01 | ScrollTrigger 实例数 | 同一路由下 `ScrollTrigger.getAll().length` ≤ 8；切路由后无累积 | 浏览器 console |
+| G-02 | `gsap.context().revert()` | 切路由后 `<section>` 内 GSAP-set 的 `data-tone` / `v35-section-tangent` 等 span 应被移除；不残留 detached element | DOM 检查 |
+| G-03 | 数字滚动到目标值 | 进入视口后 1.6s 内达到 `to`；回到视口外再进入不重播 | 视频录制 |
+| G-04 | box-shadow 动画不引起 layout shift | CTAs 周围 6px 光圈使用 `box-shadow`（不影响盒子尺寸），不引起 CLS | Performance → Layout Shifts |
+| G-05 | bundle 增量 | 仅 `gsap` 一项；`/ai-engine` 等路由不增加额外 chunk | `next build` 输出 chunks 表 |
+| G-06 | 切路由不重复入场 | 浏览器后退到首页时，hero 不"双触发"两次入场 | 视频录制 |
+| G-07 | Reduced-Motion + GSAP | `useReducedMotion()` 生效时 GSAP 早退；只有 `gsap.set(el, { opacity: 1 })` | DevTools + console |
+| G-08 | 滚动切线 (TangentSweep) scrub 平滑 | scrub=0.4 时无明显迟滞、不掉帧 | Performance 60fps 验证 |
+| G-09 | 数字带 SSR 一致性 | SSR 阶段 `CountUp` 渲染 `0`；客户端 hydrate 后再滚动到目标数（不出现 4 → 0 闪烁） | 关闭 JS / 开启 JS 对比 |
+| G-10 | GSAP 版本锁定 | `package.json` 中 `gsap` 在 `^3.12.5` 锁定；`npm ls gsap` 仅 1 副本 | npm cli |
+
+---
+
+## 11. 提交 PR 前 Checklist（V3.5-B）
+
+- [ ] `npm run typecheck` 通过
+- [ ] `npm run lint` 通过
+- [ ] `npm run build` 通过；18 路由不变
+- [ ] `bash scripts/smoke-test.sh http://127.0.0.1:3100` 通过
+- [ ] `bash scripts/api-smoke-test.sh http://127.0.0.1:3100` 通过
+- [ ] Reduced-Motion 下 A-02 / V-19 / V-20 三态肉眼测试通过
+- [ ] 桌面 1920×1080 / 移动 390×844 截图各 5 张
+- [ ] Lighthouse Performance ≥ 85；CLS < 0.05
+- [ ] `git diff --stat origin/main` 仅 `package.json`、`package-lock.json`、`app/`、`components/`、`lib/`（不出现 `docs/` 之外的改动）
+- [ ] PR 标题：`feat(motion): StarOak V3.5-B cinematic motion upgrade`
