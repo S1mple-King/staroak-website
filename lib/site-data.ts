@@ -129,3 +129,5 @@ export const complianceNotes = {
   efficiency:
     '企业AI技术效能增长平台相关内容用于企业AI治理、研发效能与组织生产力建设说明，具体效果需结合客户实际流程、数据基础和落地运营评估。'
 };
+
+export { metrics } from './metrics';
