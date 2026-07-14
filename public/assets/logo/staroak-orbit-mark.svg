@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  StarOak Orbit Mark — vector source (placeholder rebuild)
+  Reconstructed from PNG derivatives in public/assets/ as an interim SVG
+  while awaiting the brand team's final source files. See docs/BRAND_ASSETS.md.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="staroakMarkTitle">
+  <title id="staroakMarkTitle">StarOak Orbit Mark</title>
+
+  <defs>
+    <linearGradient id="oakBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F3EFE7"/>
+      <stop offset="35%" stop-color="#D9DCE1"/>
+      <stop offset="65%" stop-color="#B7BCC6"/>
+      <stop offset="100%" stop-color="#7C8290"/>
+    </linearGradient>
+
+    <linearGradient id="oakEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5C636F"/>
+      <stop offset="50%" stop-color="#9F8450"/>
+      <stop offset="100%" stop-color="#5C636F"/>
+    </linearGradient>
+
+    <radialGradient id="starCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#F3EFE7"/>
+      <stop offset="65%" stop-color="#D5B36E" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#D5B36E" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="haloGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D5B36E" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#D5B36E" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#D5B36E" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!--
+      Cross-shaped oak leaf silhouette: two leaf-shaped strokes meeting at center.
+      Path commands hand-fit to the PNG reference at 1000x600 viewBox.
+    -->
+    <path id="oakStrokeLeft" d="
+      M 230,420
+      C 290,330 410,250 560,205
+      C 470,250 390,330 320,420
+      C 300,440 270,450 240,448
+      C 220,446 210,438 230,420 Z
+    "/>
+
+    <path id="oakStrokeRight" d="
+      M 360,420
+      C 430,330 555,250 720,205
+      C 620,250 540,330 470,420
+      C 450,440 420,450 390,448
+      C 360,446 345,440 360,420 Z
+    "/>
+  </defs>
+
+  <!-- Sovereign orbit (elliptical path around the lead star) -->
+  <g stroke="#E5E2D8" stroke-width="1.4" fill="none" opacity="0.85">
+    <ellipse cx="615" cy="305" rx="345" ry="105"
+             transform="rotate(-3 615 305)"/>
+  </g>
+
+  <!-- Soft halo behind the lead star -->
+  <circle cx="615" cy="200" r="90" fill="url(#haloGlow)"/>
+
+  <!-- Lead star: 8-pointed sparkle with diffuse bloom -->
+  <g transform="translate(615 200)">
+    <circle r="34" fill="url(#starCore)"/>
+    <g fill="#FFFFFF" filter="url(#softGlow)">
+      <path d="M 0,-60 L 4,-6 L 60,0 L 4,6 L 0,60 L -4,6 L -60,0 L -4,-6 Z"/>
+      <path d="M 0,-32 L 3,-3 L 32,0 L 3,3 L 0,32 L -3,3 L -32,0 L -3,-3 Z" opacity="0.85"/>
+    </g>
+    <circle r="3.5" fill="#FFFFFF"/>
+  </g>
+
+  <!--
+    Oak cross: left stroke first (lower z), then right stroke.
+    Each stroke uses a base gradient body + thin gold edge stroke to
+    approximate the metallic + cashmere-gold sheen on the PNG reference.
+  -->
+  <g>
+    <use href="#oakStrokeLeft" fill="url(#oakBody)"/>
+    <use href="#oakStrokeLeft" fill="none" stroke="url(#oakEdge)" stroke-width="1.2" opacity="0.8"/>
+  </g>
+
+  <g>
+    <use href="#oakStrokeRight" fill="url(#oakBody)"/>
+    <use href="#oakStrokeRight" fill="none" stroke="url(#oakEdge)" stroke-width="1.2" opacity="0.8"/>
+  </g>
+
+  <!-- Subtle leading-edge highlight on the front-most stroke -->
+  <path d="
+    M 360,420
+    C 430,330 555,250 720,205
+  " fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+</svg>

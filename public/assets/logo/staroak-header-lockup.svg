@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  StarOak header lockup — vector source (placeholder rebuild)
+  Mark on the left; Chinese wordmark 星橡; English wordmark StarOak;
+  Below: tagline "Rooted Intelligence. Starward Future."
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1014 570" role="img" aria-label="StarOak 星橡">
+  <defs>
+    <linearGradient id="hdBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F3EFE7"/>
+      <stop offset="50%" stop-color="#D9DCE1"/>
+      <stop offset="100%" stop-color="#7C8290"/>
+    </linearGradient>
+
+    <linearGradient id="hdEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5C636F"/>
+      <stop offset="50%" stop-color="#D5B36E"/>
+      <stop offset="100%" stop-color="#5C636F"/>
+    </linearGradient>
+
+    <radialGradient id="hdHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D5B36E" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#D5B36E" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="hdCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#F3EFE7"/>
+      <stop offset="100%" stop-color="#D5B36E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ===== mark group, top-right of the canvas ===== -->
+  <g transform="translate(360 70) scale(0.62)">
+    <!-- orbit -->
+    <ellipse cx="615" cy="305" rx="345" ry="105" fill="none"
+             stroke="#E5E2D8" stroke-width="1.4" opacity="0.85"/>
+    <circle cx="615" cy="200" r="90" fill="url(#hdHalo)"/>
+    <!-- lead star -->
+    <g transform="translate(615 200)">
+      <circle r="34" fill="url(#hdCore)"/>
+      <path d="M 0,-60 L 4,-6 L 60,0 L 4,6 L 0,60 L -4,6 L -60,0 L -4,-6 Z" fill="#FFFFFF"/>
+      <circle r="3.5" fill="#FFFFFF"/>
+    </g>
+    <!-- oak cross -->
+    <g>
+      <path d="M 230,420 C 290,330 410,250 560,205 C 470,250 390,330 320,420 C 300,440 270,450 240,448 C 220,446 210,438 230,420 Z"
+            fill="url(#hdBody)"/>
+      <path d="M 360,420 C 430,330 555,250 720,205 C 620,250 540,330 470,420 C 450,440 420,450 390,448 C 360,446 345,440 360,420 Z"
+            fill="url(#hdBody)" stroke="url(#hdEdge)" stroke-width="1.2"/>
+    </g>
+  </g>
+
+  <!-- ===== wordmark + tagline ===== -->
+  <g font-family="'Songti SC','Noto Serif SC','Times New Roman',serif" fill="#F3EFE7">
+    <text x="80" y="430" font-size="78" letter-spacing="14" font-weight="500">星  橡</text>
+    <text x="370" y="430" font-size="78" letter-spacing="4"
+          font-family="'Cormorant Garamond','Times New Roman',serif"
+          font-weight="400">StarOak</text>
+  </g>
+  <text x="80" y="485" font-size="22" letter-spacing="6" fill="#D5B36E"
+        font-family="'Inter','Helvetica Neue',sans-serif">Rooted Intelligence.  Starward Future.</text>
+</svg>
