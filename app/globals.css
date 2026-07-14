@@ -3788,3 +3788,20 @@ button:disabled {
     opacity: 1 !important;
   }
 }
+
+/* === V3.5 motion: PageHero tangent slot + orbit speed variants ============ */
+.page-hero-tangent-slot {
+  margin: 12px 0 24px;
+}
+
+.orbit-line[data-orbit-speed="slow"] {
+  animation-duration: var(--motion-orbit-slow);
+}
+.orbit-line[data-orbit-speed="fast"] {
+  animation-duration: var(--motion-orbit-fast);
+}
+
+:root {
+  --motion-orbit-slow: 22s;
+  --motion-orbit-fast: 12s;
+}

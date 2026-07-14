@@ -8,9 +8,9 @@ export function OrbitVisual({ label = 'AI Engine', compact = false }: { label?: 
       <div aria-hidden="true">
         <div className="orbit-grid" />
         <div className="orbit-glow" />
-        <div className="orbit-line orbit-a" />
-        <div className="orbit-line orbit-b" />
-        <div className="orbit-line orbit-c" />
+        <div className="orbit-line orbit-a" data-orbit-speed="slow" />
+        <div className="orbit-line orbit-b" data-orbit-speed="slow" />
+        <div className="orbit-line orbit-c" data-orbit-speed="fast" />
         <div className="star-point" />
         <div className="core">
           <span>StarOak</span>

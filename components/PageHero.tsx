@@ -1,4 +1,5 @@
 import { OrbitVisual } from './OrbitVisual';
+import { TangentLine } from './motion/TangentLine';
 
 type PageHeroProps = {
   eyebrow?: string;
@@ -20,6 +21,9 @@ export function PageHero({
   return (
     <section className="page-hero">
       <div className="page-hero-shell">
+        <div className="page-hero-tangent-slot">
+          <TangentLine length="320px" />
+        </div>
         <div className="page-hero-index" aria-hidden="true">
           <span>{pageNumber}</span>
           <span>/</span>

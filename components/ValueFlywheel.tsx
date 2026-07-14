@@ -1,3 +1,5 @@
+import { TangentLine } from './motion/TangentLine';
+
 const flywheelSteps = [
   ['AI 引擎能力沉淀', '形成可复用、可治理的集团级智能能力'],
   ['进入真实产业场景', '从明确问题与授权数据出发'],
@@ -15,6 +17,7 @@ export function ValueFlywheel() {
       <div className="flywheel-axis" aria-hidden="true">
         <span>Capability</span><strong>价值复利</strong><span>Ecosystem</span>
       </div>
+      <TangentLine length="100%" />
       <ol className="flywheel-list">
         {flywheelSteps.map(([title, summary], index) => (
           <li key={title}>
