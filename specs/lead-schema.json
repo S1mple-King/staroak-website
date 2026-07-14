@@ -1,0 +1,37 @@
+{
+  "endpoint": "POST /api/leads",
+  "types": [
+    "ecosystem",
+    "contact",
+    "intelligence"
+  ],
+  "required": [
+    "type",
+    "name",
+    "company",
+    "email",
+    "topic",
+    "message",
+    "consent"
+  ],
+  "optional": [
+    "phone",
+    "sourcePath",
+    "website",
+    "utm"
+  ],
+  "statuses": [
+    "new",
+    "assigned",
+    "reviewing",
+    "contacted",
+    "closed",
+    "spam"
+  ],
+  "rules": {
+    "consentMustBeTrue": true,
+    "honeypotField": "website",
+    "quantRequiresCompliance": true,
+    "rateLimitRequired": true
+  }
+}

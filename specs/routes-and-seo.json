@@ -1,0 +1,71 @@
+{
+  "domain": "https://www.staroakx.com",
+  "locale": "zh-CN",
+  "routes": [
+    {
+      "path": "/",
+      "name": "首页",
+      "priority": "P0",
+      "index": true,
+      "primaryCta": "/ecosystem"
+    },
+    {
+      "path": "/about",
+      "name": "关于星橡",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/ai-engine",
+      "name": "AI引擎",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/industries",
+      "name": "产业布局",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/intelligence",
+      "name": "星橡智库",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/ecosystem",
+      "name": "生态合作",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/contact",
+      "name": "联系我们",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/privacy",
+      "name": "隐私政策",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/disclaimer",
+      "name": "免责声明",
+      "priority": "P0",
+      "index": true
+    },
+    {
+      "path": "/ai-core",
+      "name": "旧AI路径",
+      "priority": "P0",
+      "redirect": {
+        "status": 301,
+        "to": "/ai-engine"
+      },
+      "index": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "obsidian": "#050914",
+    "starfieldNavy": "#0B1220",
+    "panel": "rgba(13,21,35,0.78)",
+    "panelSecondary": "rgba(18,26,42,0.62)",
+    "line": "rgba(226,214,188,0.18)",
+    "microGold": "#D5B36E",
+    "deepGold": "#9F8450",
+    "titaniumSilver": "#D9DCE1",
+    "softSilver": "#A8ADB7",
+    "cloudWhite": "#F3EFE7",
+    "muted": "#A9B0BC",
+    "darkMuted": "#78808D"
+  },
+  "layout": {
+    "maxWidth": "1180px",
+    "wideMaxWidth": "1280px",
+    "desktopGutter": "56px",
+    "tabletGutter": "32px",
+    "mobileGutter": "18px"
+  },
+  "radius": {
+    "input": "14px",
+    "card": "20px",
+    "panel": "28px",
+    "hero": "44px",
+    "pill": "999px"
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    18,
+    24,
+    32,
+    40,
+    48,
+    64,
+    80,
+    96,
+    120,
+    140
+  ],
+  "breakpoints": {
+    "mobile": 767,
+    "tablet": 1023,
+    "desktop": 1439,
+    "wide": 1440
+  },
+  "motion": {
+    "fast": "180ms",
+    "base": "240ms",
+    "enter": "450ms",
+    "orbit": "18s",
+    "easing": "cubic-bezier(.2,.8,.2,1)"
+  },
+  "typography": {
+    "body": "Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif",
+    "display": "Noto Serif SC, Songti SC, Georgia, serif"
+  }
+}
