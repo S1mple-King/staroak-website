@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '@/lib/hooks/useGsapContext';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
@@ -26,6 +26,7 @@ export function CountUp({
   const reduced = useReducedMotion();
   const [value, setValue] = useState(reduced ? to : 0);
 
+  // Reduced motion: stay at target
   useEffect(() => {
     if (reduced) setValue(to);
   }, [reduced, to]);
@@ -33,16 +34,51 @@ export function CountUp({
   useGsapContext(() => {
     const el = ref.current;
     if (!el || reduced) return;
+
+    let observer: IntersectionObserver | null = null;
     const state = { v: 0 };
-    const tween = gsap.to(state, {
-      v: to,
-      duration,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      onUpdate: () => setValue(state.v)
-    });
-    return () => tween.kill();
-  }, [reduced, to]);
+    const enter = () => {
+      // On enter: animate 0 -> to
+      state.v = 0;
+      setValue(0);
+      gsap.fromTo(state,
+        { v: 0 },
+        {
+          v: to,
+          duration,
+          ease: 'power3.out',
+          overwrite: 'auto',
+          onUpdate: () => setValue(state.v)
+        }
+      );
+    };
+    const leave = () => {
+      // On leave: animate back to 0 (so re-entering shows the count-up again)
+      const current = state.v;
+      gsap.to(state, {
+        v: 0,
+        duration: Math.max(0.4, (current / to) * duration),
+        ease: 'power3.in',
+        overwrite: 'auto',
+        onUpdate: () => setValue(state.v)
+      });
+    };
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        if (!e) return;
+        if (e.isIntersecting) enter(); else leave();
+      },
+      { threshold: 0.35, rootMargin: '0px 0px -10% 0px' }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer?.disconnect();
+      gsap.killTweensOf(state);
+    };
+  }, [reduced, to, duration]);
 
   const formatted = value.toFixed(decimals);
   return (
