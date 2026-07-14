@@ -3691,3 +3691,15 @@ button:disabled {
   width: 100%;
   z-index: 1;
 }
+
+/* === V3.5 motion: card flip-in (Y-6° desktop, translateY mobile) ========== */
+.v35-card-flip {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v35-card-flip {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

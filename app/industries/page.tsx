@@ -1,6 +1,7 @@
 import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
 import { LeadForm } from '@/components/LeadForm';
+import { CardFlipIn } from '@/components/motion/CardFlipIn';
 import { complianceNotes, reservedIndustries, servicePlatforms } from '@/lib/site-data';
 
 export const metadata = { title: '产业布局', description: '星橡产业布局聚焦 APEX、星藤智能科技、沐洋智联与企业AI技术效能增长平台，并预留未来产业方向。' };
@@ -23,19 +24,21 @@ export default function IndustriesPage() {
       >
         <div className="card-grid two platform-showcase">
           {servicePlatforms.map((platform, index) => (
-            <article id={platform.id} className="lux-card platform-card" key={platform.id}>
-              <div className="platform-card-head">
-                <p className="card-eyebrow">{platform.eyebrow}</p>
-                <span>{platform.relation}</span>
-              </div>
-              <span className="platform-sequence" aria-hidden="true">FOCUS {String(index + 1).padStart(2, '0')}</span>
-              <h3>{platform.title}</h3>
-              <p>{platform.summary}</p>
-              <ul className="mini-list">{platform.points.map((point) => <li key={point}>{point}</li>)}</ul>
-              {platform.id === 'apex' && <p className="warning">{complianceNotes.quant}</p>}
-              {(platform.id === 'muyang' || platform.id === 'xingteng') && <p className="warning">{complianceNotes.growth}</p>}
-              {platform.id === 'ai-efficiency' && <p className="warning">{complianceNotes.efficiency}</p>}
-            </article>
+            <CardFlipIn key={platform.id} index={index}>
+              <article id={platform.id} className="lux-card platform-card">
+                <div className="platform-card-head">
+                  <p className="card-eyebrow">{platform.eyebrow}</p>
+                  <span>{platform.relation}</span>
+                </div>
+                <span className="platform-sequence" aria-hidden="true">FOCUS {String(index + 1).padStart(2, '0')}</span>
+                <h3>{platform.title}</h3>
+                <p>{platform.summary}</p>
+                <ul className="mini-list">{platform.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                {platform.id === 'apex' && <p className="warning">{complianceNotes.quant}</p>}
+                {(platform.id === 'muyang' || platform.id === 'xingteng') && <p className="warning">{complianceNotes.growth}</p>}
+                {platform.id === 'ai-efficiency' && <p className="warning">{complianceNotes.efficiency}</p>}
+              </article>
+            </CardFlipIn>
           ))}
         </div>
       </Section>
