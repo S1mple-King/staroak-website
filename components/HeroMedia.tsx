@@ -1,5 +1,12 @@
 'use client';
 
+// V3.5-B note: per the 2026-07-14 red line ("app/page.tsx 的 home hero 永不动;
+// 任何 GSAP / ScrollTrigger 也不能挂到 `.home-hero`"), this component is
+// intentionally left without a gsap.fromTo scale-in. HeroMedia renders
+// exclusively inside <section className="hero home-hero">, so any GSAP effect
+// here would animate the home hero. The motion plan §Task 13 scale push is
+// deferred to V3.6 if the red line is later relaxed.
+
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
