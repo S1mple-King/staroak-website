@@ -6,6 +6,7 @@ import { ScrollExperience } from '@/components/ScrollExperience';
 import { Section } from '@/components/Section';
 import { ValueFlywheel } from '@/components/ValueFlywheel';
 import { TangentSweep } from '@/components/motion/TangentSweep';
+import { CtaRimBreathe } from '@/components/motion/CtaRimBreathe';
 import {
   aiCapabilities,
   complianceNotes,
@@ -220,7 +221,9 @@ export default function HomePage() {
           <p>从一项真实问题开始，连接可治理的 AI 能力与长期产业协同。</p>
         </div>
         <div className="final-cta-actions">
-          <Link className="btn btn-primary" href="/ecosystem">洽谈生态合作</Link>
+          <CtaRimBreathe>
+            <Link className="btn btn-primary" href="/ecosystem">洽谈生态合作</Link>
+          </CtaRimBreathe>
           <Link className="btn btn-secondary" href="/contact">联系我们</Link>
         </div>
       </section>

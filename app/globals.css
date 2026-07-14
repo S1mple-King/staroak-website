@@ -3703,3 +3703,9 @@ button:disabled {
     transform: none !important;
   }
 }
+
+/* === V3.5 motion: CTA rim breathe (gold halo, infinite yoyo) ============== */
+.v35-cta-rim {
+  display: inline-block;
+  border-radius: 999px;
+}
