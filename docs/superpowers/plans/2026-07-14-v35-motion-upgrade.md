@@ -46,6 +46,7 @@
 | `components/motion/CountUp.tsx` | 数字滚动 0 → target |
 | `components/motion/CinematicStage.tsx` | 路由切换双层包裹（出场+入场，替换 `template.tsx` 内容） |
 | `components/motion/SectionTone.tsx` | 章节 tone 包装（提供 `data-tone` + `useGSAP` 编排） |
+| `components/motion/StatusBar.tsx` | 招牌组件：OS 级 status-bar 风的"页索引 / 集团名 / 时间码"（用户在 v35-review §1.2 P1 选定 (c)） |
 | `app/motion-init.tsx` | GSAP plugin 注册（ClientRoot 顶部调用） |
 | `tests/visual/golden.spec.ts` | Playwright 视觉 golden（占位，本环境执行不了，仅留脚本） |
 | `docs/superpowers/plans/2026-07-14-v35-motion-upgrade.md` | 本文件 |
@@ -67,6 +68,8 @@
 | `components/OrbitVisual.tsx` | 旋转速度切换（桌面 --motion-orbit-slow / 移动 --motion-orbit-fast） |
 | `components/ValueFlywheel.tsx` | li reveal 改为 clip-path 入场 + TangentLine 尾迹 |
 | `lib/site-data.ts` | 末尾追加 `metrics` 段（含 6 个公司级数字） |
+| `components/HeroMedia.tsx` + `components/PageHero.tsx` | 头部 slot 挂 `<StatusBar>` —— 所有内页 hero 顶部"页索引 / 集团名 / 时间码"招牌 |
+| `app/layout.tsx` 或 `app/page.tsx` + 所有内页 | 各页 root 节点挂 `<StatusBar>` |
 | `docs/ANIMATION_UPGRADE_PLAN_V3.5.md` | 顶升到 V3.5-B 版本、记录决策、追加 §V3.5-B |
 | `docs/VISUAL_QA_CHECKLIST_V3.5.md` | 加 GSAP-specific 反向回放条目 |
 
@@ -1063,10 +1066,10 @@ git status
 # git add -A && git commit -m "chore(motion): V3.5 pre-verification"
 ```
 
-- [ ] **Step 5: 打标签**
+- [ ] **Step 5: 打标签**（Task 16 后再做最终 v3.5.0-rc2）
 
 ```bash
-git tag -a v3.5.0-rc1 -m "StarOak V3.5.0-rc1 — motion upgrade candidate"
+git tag -a v3.5.0-rc2 -m "StarOak V3.5.0-rc2 — motion upgrade + status-bar signature"
 git push origin main --tags
 ```
 
@@ -1108,3 +1111,229 @@ git push origin main --tags
 | Reduced-Motion 用户仍在动 | Step 内每组件都内嵌 `if (reduced)` 早退；CI 阶段 DevTools 强制 reduced |
 
 每完成 1 个 Task 即 git push 一次，便于回退。
+
+---
+
+## 6. 招牌组件：StatusBar（Task 16）
+
+> 设计评审见 [docs/design-review/v35-review.md §1.2 P1](../design-review/v35-review.md)。
+> 用户 2026-07-14 选定方案 (c)：OS 级 status-bar 风的"页索引 / 集团名 / 时间码"。
+> 招牌视觉规格已写入实施计划，作为 Task 16 在 Task 15 之后执行。
+
+### 6.1 视觉规格（先于代码锁死）
+
+**形态**：单行 100% 宽的 thin row，紧贴 hero 顶部上方 12px，左右居中两端对齐；高 28px。字号 11px / letter-spacing 0.18em / uppercase。
+
+**内容**（左 → 中 → 右）：
+
+```
+01 / STAROAK HOLDINGS        ROOTED · INTELLIGENCE · STARWARD        2026·07·14 · 14:32
+```
+
+- 左：页索引（`01`）+ 集团英文名（`STAROAK HOLDINGS`）
+- 中：品牌签名（中文转大写英文带间隔点）
+- 右：本地日期与时间（24h，分钟级实时更新）
+
+**色**：文字 `#D9DCE1` opacity 0.65；左右两侧各一道 12px 微金短线作为"端点"（呼应切线母题）。背景透明，与 hero 重叠但 z-index 在 hero 内容之上。
+
+**下沿**：紧贴 status-bar 下沿 1px `rgba(217,220,225,0.12)` 横贯切线（与 V3.5-B 的 `TangentLine` 同规，但不动画、纯静态）。
+
+**断点**：
+- 桌面 ≥ 1024px：完整三段（左/中/右）
+- 平板 768-1023：仅显示左 + 右，中段隐藏
+- 移动 < 768：仅显示左 + 右；字号 10px；省略时间、只显示日期
+
+### 6.2 行为
+
+- 时间字段每 60s 用 `setInterval` 更新一次（不依赖 GSAP，纯 React state + effect）
+- 时间格式化：`YYYY·MM·DD · HH:mm`，用 `Intl.DateTimeFormat('zh-CN', { ... })`
+- 不可点击、不可聚焦、不在 TAB 序列里（`tabIndex={-1}` + `aria-hidden`）
+- Reduced-Motion 下不更新（保持首屏时间戳，避免每分钟重渲染）
+
+### 6.3 招牌文件清单
+
+新增文件：
+
+| 路径 | 责任 |
+|---|---|
+| `components/motion/StatusBar.tsx` | 招牌组件 |
+| `lib/clock.ts` | 时间格式化工具 |
+
+修改文件：
+
+| 路径 | 改动 |
+|---|---|
+| `app/layout.tsx` | 在 `<Header>` 之后、`<main>` 之前挂 `<StatusBar>`（全局只挂一次，所有页可见） |
+| `app/globals.css` | 追加 `.v35-status-bar` 全套样式 |
+
+### 6.4 任务列表
+
+### Task 16: 招牌 StatusBar（方案 C，全局唯一性签名）
+
+**Files:**
+- Create: `lib/clock.ts`
+- Create: `components/motion/StatusBar.tsx`
+- Modify: `app/layout.tsx`
+- Modify: `app/globals.css`
+
+- [ ] **Step 1: 写 `lib/clock.ts`**
+
+```ts
+export function formatStamp(d: Date = new Date()): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}·${pad(d.getMonth() + 1)}·${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+```
+
+- [ ] **Step 2: 写 `<StatusBar>`**
+
+```tsx
+'use client';
+
+import { useEffect, useState } from 'react';
+import { formatStamp } from '@/lib/clock';
+
+type Props = {
+  index: string;          // e.g. "01"
+  brand: string;          // e.g. "STAROAK HOLDINGS"
+  signature: string;      // e.g. "ROOTED · INTELLIGENCE · STARWARD"
+};
+
+export function StatusBar({ index, brand, signature }: Props) {
+  const [stamp, setStamp] = useState<string>(() => formatStamp());
+
+  useEffect(() => {
+    const id = window.setInterval(() => setStamp(formatStamp()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <div className="v35-status-bar" aria-hidden="true">
+      <span className="v35-status-bar-cap" />
+      <span className="v35-status-bar-cell v35-status-bar-left">
+        <span className="v35-status-bar-index">{index}</span>
+        <span className="v35-status-bar-sep">/</span>
+        <span>{brand}</span>
+      </span>
+      <span className="v35-status-bar-cell v35-status-bar-mid">
+        <span className="v35-status-bar-dot" />
+        <span>{signature}</span>
+        <span className="v35-status-bar-dot" />
+      </span>
+      <span className="v35-status-bar-cell v35-status-bar-right">
+        <time suppressHydrationWarning>{stamp}</time>
+      </span>
+      <span className="v35-status-bar-cap" />
+    </div>
+  );
+}
+```
+
+- [ ] **Step 3: 挂到 root layout**
+
+在 `app/layout.tsx` 中 `<Header />` 之后、`<main>` 之前插入：
+```tsx
+import { StatusBar } from '@/components/motion/StatusBar';
+...
+<Header />
+<StatusBar index="01" brand="STAROAK HOLDINGS" signature="ROOTED · INTELLIGENCE · STARWARD" />
+<main id="main-content">
+```
+
+- [ ] **Step 4: 配套样式（追加 `app/globals.css`）**
+
+```css
+.v35-status-bar {
+  position: sticky;
+  top: 0;
+  z-index: 65;            /* 头部 70 + footer；夹在 65 不抢 z 轴 */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 12px 32px 10px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silver);
+  background: transparent;
+  border-bottom: 1px solid rgba(217, 220, 225, 0.12);
+}
+.v35-status-bar-cap {
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: linear-gradient(to right, #D5B36E, transparent);
+}
+.v35-status-bar-cap:last-child {
+  background: linear-gradient(to left, #D5B36E, transparent);
+}
+.v35-status-bar-cell { display: inline-flex; align-items: center; gap: 8px; opacity: 0.75; }
+.v35-status-bar-mid { justify-content: center; }
+.v35-status-bar-right { justify-content: flex-end; }
+.v35-status-bar-mid .v35-status-bar-dot {
+  display: inline-block; width: 4px; height: 4px; border-radius: 50%;
+  background: #D5B36E; opacity: 0.7;
+}
+.v35-status-bar-index { color: #D5B36E; }
+.v35-status-bar-sep  { opacity: 0.5; }
+.v35-status-bar-mid { display: none; }          /* 默认隐藏（移动） */
+
+@media (min-width: 1024px) {
+  .v35-status-bar-mid { display: inline-flex; }
+}
+@media (max-width: 768px) {
+  .v35-status-bar { padding: 10px 18px; font-size: 10px; letter-spacing: 0.14em; }
+  .v35-status-bar-mid { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* 时间仍然更新（不 animating），无需特别降级 */
+}
+```
+
+- [ ] **Step 5: 类型 + 构建**
+
+Run: `npx tsc --noEmit && npm run build`
+Expected: 18 路由不变；bundle 中应出现 `StatusBar` client chunk。
+
+- [ ] **Step 6: smoke**
+
+Run: `bash scripts/smoke-test.sh http://127.0.0.1:3100`
+Expected: 全绿；首页多看到一个 thin status row。
+
+- [ ] **Step 7: 提交**
+
+```bash
+git add lib/clock.ts components/motion/StatusBar.tsx app/layout.tsx app/globals.css
+git commit -m "feat(motion): add StatusBar signature (P1 option c from design review)"
+```
+
+### 6.5 招牌验收（合并到 v35-review §3 验证清单）
+
+在 [docs/VISUAL_QA_CHECKLIST_V3.5.md](../VISUAL_QA_CHECKLIST_V3.5.md) 追加：
+
+| ID | 视点 | 期望 |
+|---|---|---|
+| SB-01 | 桌面 1440 首页 | sticky top 紧贴 header 之下；三段居中；左右端点 12px 微金短线可见 |
+| SB-02 | 桌面 1440 /about 等内页 | 同样位置；同一组 index/brand/signature；日期/时间显示 |
+| SB-03 | 平板 768 | 中段隐藏，仅显示左+右 |
+| SB-04 | 移动 390 | 仅显示左+右；字号 10px |
+| SB-05 | 时间更新 | 60s 后看到分钟字段递增一次（不刷新页面） |
+| SB-06 | Reduced Motion | 时间仍更新（不与 motion 冲突）；视觉静止 |
+| SB-07 | 内容可读性 | status-bar 永远在 hero 之上，但不阻挡 hero CTA（z-index 已锁定 ≤ 65） |
+| SB-08 | Tab 键序 | status-bar 不在 Tab 序列里；Tab 跳过它直接进入 header nav |
+
+### 6.6 与其它 Task 的依赖
+
+StatusBar 独立于 15 个动效 Task，但**必须在动效完成的同一次 PR 里提交**——它是品牌层面的母题，不能动效先上、招牌后补（读者会觉得动效先于签名先完成、显得脱节）。
+
+### 6.7 不在本次范围
+
+- 不做二级深链接（点击 status-bar 跳到 footer/about）
+- 不加日间/夜间自动切换
+- 不在 footer / cookie banner 上加 status-bar
+- 不在 privacy / disclaimer 上加 status-bar（合规文档保持纯净）
