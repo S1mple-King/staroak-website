@@ -34,6 +34,9 @@
 | D5 | 是否动现有 IntersectionObserver / keyframes | **不动**——保留作为 reduced-motion 兜底；新组件与之并存 |
 | D6 | 是否动 18 路由 | 不能增加新路径；可加 client chunk |
 | D7 | 是否动 LeadForm / Strapi / API / Docker / Nginx | 不动 |
+| D8 | 是否改 home hero | **永远不动**（用户 2026-07-14 硬红线）：`RootlineNav` 在 `/` 早退；BranchTangent 不进 home；任何 GSAP / ScrollTrigger 也不能挂到 `.home-hero` |
+| D9 | "橡 / 扎根智能"母题 | **新增 Rootline + BranchTangent**（Task 17 / 18），与动效同期提交；落在 About / AI-Engine / Industries / Ecosystem + footer |
+| D10 | 最终 PR / Tag | 不分 PR 拆批；所有动效 + 品牌母题在同一版本内一次性完成；tag `v3.5.0-rc2` |
 
 ---
 
@@ -60,7 +63,7 @@
 
 ---
 
-## 4. 16 个 Task 的执行顺序与依赖
+## 4. 19 个 Task 的执行顺序与依赖
 
 ```
 T1 (gsap) → T2 (useReducedMotion) → T3 (useGsapContext) → T4 (MotionInit)
@@ -73,10 +76,15 @@ T1 (gsap) → T2 (useReducedMotion) → T3 (useGsapContext) → T4 (MotionInit)
                                                             ↓
                           T13 (HeroMedia) → T14 (PageHero/OrbitVisual/ValueFlywheel)
                                                             ↓
-                                          T15 (smoke) → T16 (StatusBar) → final tag v3.5.0-rc2
+                                          T15 (中间 smoke) → T16 (StatusBar)
+                                                            ↓
+                          T17 (RootlineNav) → T18 (RootlineDriver + BranchTangent)
+                                                            ↓
+                                          T19 (全量 smoke + tag v3.5.0-rc2)
 ```
 
 > 提示：T5 (`lib/metrics.ts`) 与 T1 同步骤执行；T6 与 T2/T3/T4 可并行，因为它们彼此独立。
+> Task 17/18 是用户 2026-07-14 追加的"橡 / 扎根智能"补丁；不改 home hero，只落地在 About / AI-Engine / Industries / Ecosystem + footer。
 
 ---
 
@@ -99,7 +107,10 @@ T1 (gsap) → T2 (useReducedMotion) → T3 (useGsapContext) → T4 (MotionInit)
 | 13 | HeroMedia 进入视口时 scale 0.985→1.005；commit `feat(motion): add subtle scale-in push...` |
 | 14 | PageHero/Orbit/Flywheel 接入切线；commit `feat(motion): wire TangentLine into PageHero/Orbit/Flywheel` |
 | 15 | smoke + lint + build 全过；commit `chore(motion): V3.5 pre-verification` |
-| 16 | 全部页面顶部 status-bar 可见，60s 后时间更新；commit `feat(motion): add StatusBar signature...`；打 `v3.5.0-rc2` tag 并 push |
+| 16 | 全部页面顶部 status-bar 可见，60s 后时间更新；commit `feat(motion): add StatusBar signature...` |
+| 17 | About 页左侧 RootlineNav 可见（5 标签 + TRUNK 高亮），home 不变；commit `feat(brand): add RootlineNav ...` |
+| 18 | 4 内页 hero eyebrow 上方 28px BranchTangent + footer 32px 短线；commit `feat(brand): wire Rootline ring + BranchTangent...` |
+| 19 | smoke 全绿；所有动效 + 品牌母题一次性提 PR；打 `v3.5.0-rc2` tag 并 push |
 
 ---
 
@@ -163,6 +174,8 @@ npm run lint            # 应当 exit 0
 - [ ] T14: PageHero 有切线 slot；Orbit 速度可切换；Flywheel 有 TangentLine 尾迹
 - [ ] T15: smoke 全绿
 - [ ] T16: status-bar 在所有页可见；时间每 60s 更新
+- [ ] T17: RootlineNav 在 `/about` `/ai-engine` `/industries` `/ecosystem` 桌面 ≥ 1280 可见；home `/` 不可见；当前页章节高亮
+- [ ] T18: 4 内页 hero eyebrow 上方 28px BranchTangent 横扫；footer 上方 32px 微金短线端点；年轮圆点随滚从上移到下
 
 ---
 
@@ -230,6 +243,6 @@ git push origin main --force-with-lease
 
 ## 13. 一句话任务陈述
 
-> 用 GSAP 3.12+ScrollTrigger 给 StarOak 官网加入 7 个动效组件 + 1 个全站 status-bar 招牌，主题保持 quiet-luxury / Sovereign Orbit；18 路由不变；最后一个 commit 是 feat(motion): add StatusBar signature；打 tag v3.5.0-rc2。
+> 用 GSAP 3.12+ScrollTrigger 给 StarOak 官网加入 7 个动效组件 + 1 个全站 status-bar 招牌 + 1 个 Rootline 纵线章节索引 + 4 个 BranchTangent 横向切线，主题保持 quiet-luxury / Sovereign Orbit；18 路由不变；home hero 一律不动；最后一个 commit 是 feat(brand): wire Rootline ring + BranchTangent...；打 tag v3.5.0-rc2。
 
 开始：跳到 [Task 1](../superpowers/plans/2026-07-14-v35-motion-upgrade.md#task-1-引入-gsap-依赖)。

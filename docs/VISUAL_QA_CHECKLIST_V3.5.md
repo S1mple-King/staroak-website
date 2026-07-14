@@ -143,7 +143,31 @@
 
 ---
 
-## 11. 提交 PR 前 Checklist（V3.5-B）
+## 11. Rootline + BranchTangent 验收（方案 A+B 同期）
+
+> 配套：[docs/brand/ROOTED_INTELLIGENCE_PATCH_V3.5.md](brand/ROOTED_INTELLIGENCE_PATCH_V3.5.md)
+> 落地：[docs/superpowers/plans/2026-07-14-v35-motion-upgrade.md §7](superpowers/plans/2026-07-14-v35-motion-upgrade.md) Task 17 / Task 18
+
+| ID | 视点 | 期望 |
+|---|---|---|
+| RL-01 | 桌面 1280+ 打开 `/` | Rootline **完全不可见**（home 早退） |
+| RL-02 | 桌面 1280+ 打开 `/about` | 左侧 1px 纵线 + 5 标签（GROVE / TRUNK / CANOPY / ORBIT / FRUIT）；TRUNK 高亮 |
+| RL-03 | 桌面 1280+ 打开 `/ai-engine` | ORBIT 高亮；其它半透明 |
+| RL-04 | 桌面 1280+ 打开 `/ecosystem` | FRUIT 高亮 |
+| RL-05 | 桌面 1280+ 打开 `/contact` 或 `/intelligence` | Rootline 不显示（chapters 数组未覆盖） |
+| RL-06 | 移动 / 平板 < 1280 | Rootline 完全不可见 |
+| RL-07 | home hero 视觉回归 | 与 baseline 截图逐像素一致（hero 区不变） |
+| RL-08 | footer 上方 32px 微金短线 | 可见且与 logo 区域左对齐 |
+| RL-09 | Reduced Motion | `--rootline-ring-y` 立即归位；hover fade 关闭 |
+| RL-10 | 年轮圆点滚动 | 滚动整页（390vh 测试），4px 微金圆点从顶缓慢移到 footer 上方 220px；scrub 0.4 |
+| RL-11 | BranchTangent | 4 个内页每页 hero eyebrow 上方 28px 微金短横切线，自左向右 scaleX 0 → 1 |
+| RL-12 | 标签字号 | 9px uppercase letter-spacing 0.18em；hover opacity 1 |
+| RL-13 | 不在 Tab 序列 | Rootline 与 BranchTangent 不抢 Tab 焦点；首焦跳过 Rootline 链 |
+| RL-14 | z-index 不冲突 | status-bar z=65、Rootline z=30、header z=70；互不遮挡 |
+
+---
+
+## 12. 提交 PR 前 Checklist（V3.5-B）
 
 - [ ] `npm run typecheck` 通过
 - [ ] `npm run lint` 通过

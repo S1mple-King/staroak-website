@@ -27,6 +27,7 @@
   - `app/contact/page.tsx` `app/intelligence/page.tsx`
   - `app/privacy/page.tsx` `app/disclaimer/page.tsx`
   - `Dockerfile` / `docker-compose.*` / `nginx/*` / `ecosystem.config.cjs` / `scripts/*`
+  - **Home hero（硬红线 2026-07-14）**：`app/page.tsx` 第 36-67 行（`<section className="hero home-hero">` 整个区块，以及 HeroMedia / h1 / claim / hero-actions）保持不变。任何 Task 17/18 都不允许把组件挂进 `<div className="home-page">` 内。
 
 ---
 
@@ -1040,7 +1041,7 @@ git commit -m "feat(motion): wire TangentLine into PageHero / Orbit / Flywheel"
 
 ---
 
-### Task 15: 路由 smoke + 项目最终验收
+### Task 15: 路由 smoke + 项目最终验收（中间 checkpoint）
 
 **Files:** 无
 
@@ -1057,6 +1058,8 @@ Expected: 全绿；/ai-core 仍 301。
 
 Run: `npm run typecheck && npm run lint && npm run build`
 Expected: 全过；路由仍 18 条。
+
+**注意**：本 Task 是动效阶段（Task 1-14）的中间 checkpoint；后续 Task 16 StatusBar / Task 17 RootlineNav / Task 18 BranchTangent 都完成后，再做最终 Task 19 全量 smoke。
 
 - [ ] **Step 4: 提交一次 meta 提交（若有未跟踪）**
 
@@ -1075,6 +1078,47 @@ git push origin main --tags
 
 ---
 
+### Task 19: 全量 smoke + V3.5.0-rc2 标签
+
+**Files:** 无
+
+- [ ] **Step 1: 启动 production**
+
+Run: `PORT=3100 npm run start &`
+
+- [ ] **Step 2: 全量 smoke**
+
+Run: `bash scripts/smoke-test.sh http://127.0.0.1:3100 && bash scripts/api-smoke-test.sh http://127.0.0.1:3100`
+Expected: 全绿；/ai-core 仍 301；18 路由不变。
+
+- [ ] **Step 3: 视觉清单（Codex 人工核）**
+
+跑过 [VISUAL_QA_CHECKLIST_V3.5.md](../VISUAL_QA_CHECKLIST_V3.5.md) 中：
+- A-01 ~ A-07（自动）
+- V-01 / V-09 / V-15 / V-19 / V-20
+- P-01 / P-04
+- N-01 / N-02
+- SB-01 ~ SB-08（StatusBar）
+- **RL-01 ~ RL-12（Rootline + BranchTangent，新增）**
+- G-01 ~ G-10（GSAP 反向回放）
+
+- [ ] **Step 4: 提交收尾（若有未跟踪）**
+
+```bash
+git status
+# 如有未提交：
+# git add -A && git commit -m "chore(motion+brand): V3.5-B + Rootline pre-tag cleanup"
+```
+
+- [ ] **Step 5: 打最终标签**
+
+```bash
+git tag -a v3.5.0-rc2 -m "StarOak V3.5.0-rc2 — motion upgrade + status-bar signature + Rootline (oak)"
+git push origin main --tags
+```
+
+---
+
 ## 3. 验收 / 反向回放
 
 完成后，把以下交付物汇总到 `docs/VISUAL_QA_CHECKLIST_V3.5.md` §9 "验收交付"：
@@ -1083,9 +1127,13 @@ git push origin main --tags
 2. V-01 / V-09 / V-15 / V-19 / V-20 视觉截图
 3. P-01 / P-04 性能快照
 4. N-01 / N-02 屏幕阅读器录屏（如有设备）
-5. `git diff --stat main~1 main` 反向回放
+5. **SB-01 ~ SB-08**（StatusBar 新增）
+6. **RL-01 ~ RL-12**（Rootline + BranchTangent 新增）
+7. `git diff --stat main~1 main` 反向回放
 
 如在执行过程中发现 GSAP 用法对路由切换 DOM 有 destroy/in 副作用，可回到 Task 12 把 `CinematicStage` 替换为 `useMemo + key={pathname}` 的稳定方案。
+
+如发现 Rootline 在 `/contact` / `/intelligence` 上也出现，且该页允许出现，则保留；如发现联动抽搐，回到 Task 17 把 RootlineNav 改成 static（移除 `useGsapContext`）。
 
 ---
 
@@ -1098,6 +1146,9 @@ git push origin main --tags
 - 不调整 SEO 元信息与 sitemap
 - 不动 LeadForm 业务逻辑
 - 不动 API 路由、Strapi 模型、Docker、Nginx
+- **不改 home hero**（用户 2026-07-14 硬红线）
+- 不在 privacy / disclaimer / footer banner 上加 Rootline 或 StatusBar
+- 不动 slogan 文案
 
 ---
 
@@ -1329,7 +1380,7 @@ git commit -m "feat(motion): add StatusBar signature (P1 option c from design re
 
 ### 6.6 与其它 Task 的依赖
 
-StatusBar 独立于 15 个动效 Task，但**必须在动效完成的同一次 PR 里提交**——它是品牌层面的母题，不能动效先上、招牌后补（读者会觉得动效先于签名先完成、显得脱节）。
+StatusBar、TangentLine、TangentSweep、SectionTone、CardFlipIn、CtaRimBreathe、CountUp、CinematicStage、RootlineNav、BranchTangent 共 12 个组件属于品牌层面母题。Task 1-14（动效基础）→ Task 15（中间 smoke）→ Task 16（StatusBar）→ Task 17（RootlineNav）→ Task 18（BranchTangent + RootlineDriver）→ Task 19（全量 smoke + 标签）。所有动效与品牌母题**在同一个版本内一起完成**，不能拆批提 PR——品牌一致性需要评审时一次性看到全貌。
 
 ### 6.7 不在本次范围
 
@@ -1337,3 +1388,447 @@ StatusBar 独立于 15 个动效 Task，但**必须在动效完成的同一次 P
 - 不加日间/夜间自动切换
 - 不在 footer / cookie banner 上加 status-bar
 - 不在 privacy / disclaimer 上加 status-bar（合规文档保持纯净）
+
+---
+
+## 7. 品牌母题补丁：Rootline + BranchTangent（Task 17 / 18，方案 A+B）
+
+> 设计评审见 [docs/brand/ROOTED_INTELLIGENCE_PATCH_V3.5.md](../brand/ROOTED_INTELLIGENCE_PATCH_V3.5.md)。
+> 用户 2026-07-14 确认："V3.4 slogan 用了 `Rooted Intelligence`，但没有视觉把『橡 / 扎根』做出来；不动 home hero，其他页面做适当更改"。
+> 取舍：**方案 A（极简 RootlineNav）+ 方案 B（ScrollTrigger 联动 + BranchTangent 横向切线 + 年轮脉冲）同期提交**。
+> 重要：home hero **完全不变**；RootlineNav 仅在非 home 路由生效；BranchTangent 仅在 V3.5-B TangentSweep 章节作用域内追加横向变体。
+
+### 7.1 概念对位
+
+| 母题 | 方向 | 现有 | 补丁 |
+|---|---|---|---|
+| Orbit（星辰） | 在 hero 中作横 / 圆周图形 | ✅ 已成立 | 不动 |
+| TangentLine（横切线） | 横向，章节切线 | ✅（Task 6/7） | 追加 BranchTangent：纵线 → 横线 的 T 型分枝 |
+| Rootline（纵根线） | 纵向，章节索引 | ❌ 不存在 | 新增 RootlineNav |
+| + 年轮脉冲（rolling dot） | 跟随滚动 | ❌ | 新增 |
+
+最终形成正交品牌矩阵：
+```
+          Orbit（hero 标志）
+            ●
+            │
+TangentLine━━━━━━━━━━━━ BranchTangent
+            │
+RootlineNav ◯ ◯ ◯ ◯ ◯  ← 左右章节坐标
+            │
+```
+
+### 7.2 Task 17：RootlineNav（左侧固定纵线）
+
+**Files:**
+- Create: `components/brand/RootlineNav.tsx`
+- Modify: `app/layout.tsx`
+- Modify: `app/globals.css`
+
+- [ ] **Step 1: 写组件**
+
+```tsx
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const chapters = [
+  { key: '01', label: 'GROVE',  href: '/about' },
+  { key: '02', label: 'TRUNK',  href: '/about#holding-architecture' },
+  { key: '03', label: 'CANOPY', href: '/about#mission-vision' },
+  { key: '04', label: 'ORBIT',  href: '/ai-engine' },
+  { key: '05', label: 'FRUIT',  href: '/ecosystem' }
+] as const;
+
+export function RootlineNav() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  if (isHome) return null;
+
+  return (
+    <aside className="rootline" aria-label="StarOak 章节索引">
+      <div className="rootline-rail" aria-hidden="true">
+        <span className="rootline-ring" />
+      </div>
+      <ol>
+        {chapters.map((c) => {
+          const base = c.href.split('#')[0];
+          const isCurrent = pathname.startsWith(base);
+          return (
+            <li key={c.key} aria-current={isCurrent ? 'page' : undefined}>
+              <Link href={c.href} className="rootline-link">
+                <span className="rootline-key">{c.key}</span>
+                <span className="rootline-label">{c.label}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
+      <div className="rootline-cap" aria-hidden="true" />
+    </aside>
+  );
+}
+```
+
+- [ ] **Step 2: 挂到 root layout（`app/layout.tsx`）**
+
+```tsx
+import { RootlineNav } from '@/components/brand/RootlineNav';
+...
+<body>
+  <MotionInit />
+  <StatusBar index="01" brand="STAROAK HOLDINGS" signature="ROOTED · INTELLIGENCE · STARWARD" />
+  <Header />
+  <RootlineNav />           {/* 新增。组件内部已 isHome 早退 */}
+  <main id="main-content">
+```
+
+- [ ] **Step 3: 配套 CSS（追加 `app/globals.css`）**
+
+```css
+.rootline {
+  position: fixed;
+  top: 96px;
+  bottom: 96px;
+  left: var(--gutter);
+  z-index: 30;             /* 头部 70 + footer 100；卡片 40；夹在中间不抢 z */
+  display: none;
+  pointer-events: none;
+  width: 96px;
+}
+.rootline > ol { list-style: none; padding: 0; margin: 0; pointer-events: auto; }
+
+.rootline-rail {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to top, #9F8450 0%, #D5B36E 75%, #D9DCE1 100%);
+  opacity: 0.55;
+}
+
+.rootline-ring {
+  position: absolute;
+  left: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D5B36E;
+  transform: translate3d(0, var(--rootline-ring-y, 0), 0);
+  box-shadow: 0 0 8px rgba(213,179,110,0.55);
+  transition: transform 240ms var(--ease);
+}
+
+.rootline-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D9DCE1;
+  opacity: 0.5;
+  transition: opacity var(--motion-base) var(--ease), color var(--motion-base) var(--ease);
+  margin: 48px 0;
+  white-space: nowrap;
+}
+.rootline-link:hover { opacity: 1; color: #D5B36E; }
+
+.rootline-link[aria-current="page"] {
+  opacity: 1;
+  color: #D5B36E;
+}
+.rootline-link[aria-current="page"]::before {
+  content: "";
+  width: 6px; height: 6px;
+  background: #D5B36E;
+  border-radius: 50%;
+  margin-right: 6px;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+.rootline-key { color: #D5B36E; }
+.rootline-sep { opacity: 0.5; margin: 0 6px; }
+
+.rootline-cap {
+  position: absolute;
+  left: -1.5px;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D5B36E;
+}
+
+@media (min-width: 1280px) {
+  .rootline { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rootline-ring { transition: none !important; }
+  .rootline-link { transition: none !important; }
+}
+```
+
+- [ ] **Step 4: 类型 + 构建**
+
+Run: `npx tsc --noEmit && npm run build`
+Expected: 18 路由不变；客户端 chunks 出现 RootlineNav。
+
+- [ ] **Step 5: smoke**
+
+Run: `bash scripts/smoke-test.sh http://127.0.0.1:3100`
+Expected: 全绿。
+
+- [ ] **Step 6: 提交**
+
+```bash
+git add components/brand/RootlineNav.tsx app/layout.tsx app/globals.css
+git commit -m "feat(brand): add RootlineNav vertical chapter rail (oak metaphor, scheme A)"
+```
+
+### 7.3 Task 18：Rootline 联动 + BranchTangent（方案 B）
+
+**Files:**
+- Create: `components/brand/RootlineDriver.tsx`
+- Create: `components/motion/BranchTangent.tsx`
+- Modify: `app/about/page.tsx` `app/ai-engine/page.tsx` `app/industries/page.tsx` `app/ecosystem/page.tsx`
+- Modify: `app/globals.css`
+
+- [ ] **Step 1: 写 `RootlineDriver`（年轮脉冲）**
+
+```tsx
+'use client';
+
+import { useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGsapContext } from '@/lib/hooks/useGsapContext';
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
+
+export function RootlineDriver({ target = '.home-page, main' }: { target?: string }) {
+  const reduced = useReducedMotion();
+
+  useGsapContext((ctx) => {
+    const page = document.querySelector<HTMLElement>(target);
+    const aside = document.querySelector<HTMLElement>('.rootline');
+    const ring = document.querySelector<HTMLElement>('.rootline-ring');
+    if (!page || !aside || !ring) return;
+
+    if (reduced) {
+      ring.style.setProperty('--rootline-ring-y', '0px');
+      return;
+    }
+
+    const tween = gsap.to(ring, {
+      '--rootline-ring-y': () => `${page.getBoundingClientRect().bottom - 220}px`,
+      ease: 'none',
+      scrollTrigger: { trigger: page, start: 'top top', end: 'bottom bottom', scrub: 0.4 }
+    });
+    ctx.add(() => tween.scrollTrigger?.kill());
+  }, [reduced, target]);
+
+  return null;
+}
+```
+
+- [ ] **Step 2: 写 `BranchTangent`（横向分支切线）**
+
+```tsx
+'use client';
+
+import { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGsapContext } from '@/lib/hooks/useGsapContext';
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
+
+type Props = {
+  trackSelector: string;
+  align?: 'start' | 'end';
+};
+
+export function BranchTangent({ trackSelector, align = 'start' }: Props) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const reduced = useReducedMotion();
+
+  useGsapContext((ctx) => {
+    const el = ref.current;
+    const track = document.querySelector<HTMLElement>(trackSelector);
+    if (!el || !track) return;
+
+    if (reduced) {
+      gsap.set(el, { scaleX: 1, opacity: 1 });
+      return;
+    }
+
+    const tween = gsap.fromTo(
+      el,
+      { scaleX: 0, opacity: 0 },
+      {
+        scaleX: 1,
+        opacity: 1,
+        ease: 'none',
+        transformOrigin: `${align} center`,
+        scrollTrigger: { trigger: track, start: 'top 85%', end: 'bottom 35%', scrub: 0.4 }
+      }
+    );
+    ctx.add(() => tween.scrollTrigger?.kill());
+  }, [reduced, trackSelector, align]);
+
+  return (
+    <span
+      ref={ref}
+      className="v35-branch-tangent"
+      data-align={align}
+      aria-hidden="true"
+    />
+  );
+}
+```
+
+- [ ] **Step 3: 样式**
+
+```css
+:root { --motion-rail: 220ms; }
+
+.v35-branch-tangent {
+  display: block;
+  position: relative;
+  height: 1px;
+  width: 28px;
+  background: linear-gradient(to right, #D5B36E 0%, #D5B36E 8px, #D9DCE1 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0;
+}
+.v35-branch-tangent[data-align="end"] {
+  transform-origin: right center;
+  background: linear-gradient(to left, #D5B36E 0%, #D5B36E 8px, #D9DCE1 100%);
+}
+```
+
+- [ ] **Step 4: `RootlineDriver` 挂到 root layout**
+
+在 Task 17 Step 2 之后追加：
+```tsx
+import { RootlineDriver } from '@/components/brand/RootlineDriver';
+...
+<RootlineNav />
+<RootlineDriver target="main" />
+<main id="main-content">
+```
+
+- [ ] **Step 5: 在 `app/about/page.tsx` hero eyebrow 上方挂 BranchTangent**
+
+```tsx
+import { BranchTangent } from '@/components/motion/BranchTangent';
+...
+<PageHero ...>
+  <div className="page-hero-branch-slot">
+    <BranchTangent trackSelector=".page-hero" align="start" />
+  </div>
+  {/* PageHero 原内容 */}
+</PageHero>
+```
+样式（追加 globals.css）：
+```css
+.page-hero-branch-slot { margin: 8px 0 12px; }
+```
+
+- [ ] **Step 6: 同理 `app/ai-engine/page.tsx` / `app/industries/page.tsx` / `app/ecosystem/page.tsx`**
+
+每页 `<PageHero>` 之前插入：
+```tsx
+<div className="page-hero-branch-slot"><BranchTangent trackSelector=".page-hero" /></div>
+```
+
+- [ ] **Step 7: footer 加 8px 微金短线（在 Footer.tsx 内）**
+
+在 Footer 顶部 logo 块 `<div className="footer-brand">` 之上加：
+```tsx
+<span className="footer-rootline-cap" aria-hidden="true" />
+```
+样式：
+```css
+.footer-rootline-cap {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(to right, #D5B36E 0%, transparent 100%);
+  margin-bottom: 16px;
+}
+```
+
+- [ ] **Step 8: 类型 + 构建 + smoke**
+
+```bash
+npx tsc --noEmit && npm run build
+PORT=3100 npm run start &
+bash scripts/smoke-test.sh http://127.0.0.1:3100
+```
+Expected: 全绿；About / AI-Engine / Industries / Ecosystem 顶部均可见 28px 微金短横切线；footer 上方 32px 微金短线端点。
+
+- [ ] **Step 9: 提交**
+
+```bash
+git add components/brand/RootlineDriver.tsx components/motion/BranchTangent.tsx \
+        app/about/page.tsx app/ai-engine/page.tsx app/industries/page.tsx app/ecosystem/page.tsx \
+        components/Footer.tsx app/layout.tsx app/globals.css
+git commit -m "feat(brand): wire Rootline ring + BranchTangent across inner pages (scheme B)"
+```
+
+### 7.4 Rootline 验收
+
+在 [docs/VISUAL_QA_CHECKLIST_V3.5.md](../VISUAL_QA_CHECKLIST_V3.5.md) 追加：
+
+| ID | 视点 | 期望 |
+|---|---|---|
+| RL-01 | 桌面 1280+ 打开 `/` | Rootline 完全不可见（home 早退） |
+| RL-02 | 桌面 1280+ 打开 `/about` | 左侧 1px 纵线 + 5 标签（GROVE/TRUNK/CANOPY/ORBIT/FRUIT）；TRUNK 高亮 |
+| RL-03 | 桌面 1280+ 打开 `/ai-engine` | ORBIT 高亮，其它半透明 |
+| RL-04 | 桌面 1280+ 打开 `/ecosystem` | FRUIT 高亮 |
+| RL-05 | 移动 / 平板 < 1280 | Rootline 完全不可见 |
+| RL-06 | home hero 视觉回归 | 与 baseline 截图逐像素一致（hero 区不变） |
+| RL-07 | footer 上方 32px 微金短线 | 可见且与 logo 区域左对齐 |
+| RL-08 | Reduced Motion | `--rootline-ring-y` 立即归位；hover fade 关闭 |
+| RL-09 | 年轮圆点滚动 | 滚动整页（390vh 测试），4px 微金圆点从顶缓慢移到 footer 上方 220px；scrub 0.4 |
+| RL-10 | BranchTangent | 4 个内页每页 hero eyebrow 上方 28px 微金短横切线，自左向右 scaleX 0→1 |
+| RL-11 | 标签字号 | 9px uppercase letter-spacing 0.18em；hover opacity 1 |
+| RL-12 | 不在 Tab 序列 | Rootline 与 BranchTangent 不抢 Tab 焦点；首焦跳过 Rootline 链 |
+
+### 7.5 不在本次范围（Rootline / BranchTangent）
+
+- 方案 C（5 章 micro-icons + 春分隐藏彩蛋）—— V3.6 后再说
+- 改 slogan 文案 —— 不动（需法务）
+- 改 footer 全站文案 —— 不动
+- privacy / disclaimer 加 Rootline —— 不加（合规文档保持纯净）
+- 在 home hero 上挂 Rootline —— **永远不动**（用户硬红线）
+- Rootline 控件与 §V3.5-B status-bar 抢视觉 —— 已分 z-index（status-bar z=65，Rootline z=30），互不干扰
+
+### 7.6 整体 18 Task 时序（已扩）
+
+```
+T1 ─ T4 ─ gsap 基础 + MotionInit
+└── T5 ─ metrics
+└── T6 / T7 / T8 / T9 / T10 / T11 ─ 7 个动效组件
+└── T12 ─ CinematicStage 路由入场
+└── T13 / T14 ─ HeroMedia + PageHero/Orbit/Flywheel 微调
+└── T15 ─ smoke
+└── T16 ─ StatusBar 招牌
+└── T17 ─ RootlineNav 方案 A  ← 新增
+└── T18 ─ RootlineDriver + BranchTangent 方案 B  ← 新增
+└── T19 ─ smoke 全 + 回滚演练（合并自原 T15） + tag v3.5.0-rc2
+```
+
+### 7.7 回滚
+
+A / B 任一 PR 出问题：
+
+```bash
+git revert <commit-sha>           # 单独 PR 回滚
+# 或临时关闭：
+# .rootline { display: none !important; }
+# .v35-branch-tangent { display: none !important; }
+```
