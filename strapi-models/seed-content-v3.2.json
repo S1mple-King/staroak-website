@@ -1,0 +1,40 @@
+{
+  "industries": [
+    {
+      "slug": "muyang-global-growth",
+      "title": "沐洋智联｜AI全球增长服务平台",
+      "relation": "星橡参股联合打造 / 产业服务抓手",
+      "summary": "面向企业全球市场拓展，整合市场洞察、内容生成、渠道触达、线索管理、AI获客与增长运营能力。",
+      "complianceCategory": "growth"
+    },
+    {
+      "slug": "xingteng-pashanhu-ai-acquisition",
+      "title": "星藤智能科技 × 爬山虎｜AI智能获客",
+      "relation": "AI智能获客主要内容",
+      "summary": "围绕全域智能获客与运营，整合 AI客服、客群会话、会话洞察、意向客户识别、热词分析与私域转化。",
+      "complianceCategory": "growth"
+    },
+    {
+      "slug": "enterprise-ai-efficiency",
+      "title": "企业AI技术效能增长平台",
+      "relation": "企业AI效能增长方案",
+      "summary": "帮助企业将 AI 从个人工具升级为组织级生产力系统，形成统一入口、模型治理、研发场景 Agent、效能看板、资产沉淀与安全治理的效能增长闭环。",
+      "complianceCategory": "data"
+    },
+    {
+      "slug": "apex-ai-quant-trading",
+      "title": "APEX AI量化交易平台",
+      "relation": "AI量化交易平台",
+      "summary": "全球多市场 AI 智能交易中枢系统，围绕 AI 信号工厂、全球多市场执行中台、统一风控与审计能力进行系统化建设。",
+      "complianceCategory": "quant"
+    }
+  ],
+  "capabilities": [
+    { "title": "模型与智能体能力", "summary": "面向企业知识、业务流程和垂直场景构建智能体能力。" },
+    { "title": "数据智能", "summary": "围绕数据清洗、分析、预测、风控和增长洞察形成决策支持。" },
+    { "title": "流程自动化", "summary": "以自动化和智能协同重构业务流程、运营效率和组织协同。" },
+    { "title": "增长智能", "summary": "支持客户画像、线索识别、内容生成、触达优化、私域运营与销售协同。" },
+    { "title": "量化研究辅助", "summary": "支持策略研究、AI信号、数据分析、风险控制、审计追踪和系统能力建设。" },
+    { "title": "可信 AI 治理", "summary": "围绕安全、合规、可追溯和审慎发布形成治理机制。" }
+  ]
+}
