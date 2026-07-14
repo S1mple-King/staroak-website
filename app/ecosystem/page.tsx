@@ -1,6 +1,8 @@
 import { LeadForm } from '@/components/LeadForm';
 import { PageHero } from '@/components/PageHero';
 import { Section } from '@/components/Section';
+import { metrics } from '@/lib/site-data';
+import { CountUp } from '@/components/motion/CountUp';
 
 export const metadata = { title: '生态合作', description: '围绕 AI 引擎、沐洋智联全球增长、星藤智能科技AI获客、APEX系统能力、企业AI技术效能与产业共创展开生态合作。' };
 
@@ -26,6 +28,17 @@ export default function EcosystemPage() {
         pageNumber="06"
         pageName="ECOSYSTEM"
       />
+      <section className="v35-metrics-band" aria-label="集团能力指标">
+        <ul>
+          {metrics.map((m) => (
+            <li key={m.key}>
+              <p>{m.label}</p>
+              <CountUp to={m.value} suffix={m.suffix} />
+              <p>{m.caption}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
       <Section
         eyebrow="Partnership Network"
         title="让不同能力，在同一长期目标下协同。"

@@ -3709,3 +3709,52 @@ button:disabled {
   display: inline-block;
   border-radius: 999px;
 }
+
+/* === V3.5 motion: count-up + metrics band (Ecosystem) ====================== */
+.v35-countup { font-variant-numeric: tabular-nums; }
+
+.v35-metrics-band {
+  padding: 56px 0;
+}
+.v35-metrics-band ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+  list-style: none;
+}
+.v35-metrics-band li {
+  border-top: 1px solid rgba(217, 220, 225, 0.16);
+  padding-top: 18px;
+}
+.v35-metrics-band li > p:first-child {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #D9DCE1;
+  opacity: 0.7;
+}
+.v35-metrics-band li > p:last-child {
+  color: #D9DCE1;
+  opacity: 0.65;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.v35-metrics-band span.v35-countup {
+  display: block;
+  font-family: 'Times New Roman', serif;
+  font-size: 56px;
+  color: #D5B36E;
+  line-height: 1.1;
+}
+@media (max-width: 768px) {
+  .v35-metrics-band ul {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .v35-metrics-band span.v35-countup {
+    font-size: 44px;
+  }
+}
